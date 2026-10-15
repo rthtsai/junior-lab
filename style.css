@@ -28,6 +28,7 @@ h3{font-size:1.05rem;font-weight:700}
 p{margin:0}
 a{color:inherit}
 
+/* 頁首 */
 header{background:var(--band);color:var(--band-fg)}
 header .wrap{padding-block:2.2rem 2rem;display:flex;flex-direction:column;gap:1.1rem}
 .kicker{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:#C9D0F2;font-weight:700}
@@ -35,6 +36,7 @@ header .wrap{padding-block:2.2rem 2rem;display:flex;flex-direction:column;gap:1.
 .three span{background:var(--band-soft);border-radius:999px;padding:.3rem .9rem;font-weight:700;font-size:.92rem}
 .three b{color:#FFC9CB}
 
+/* 導覽 */
 nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--surface);border-bottom:1px solid var(--line)}
 nav .wrap{padding-block:.5rem;display:flex;gap:.3rem;overflow-x:auto;scrollbar-width:none}
 nav a{flex:0 0 auto;text-decoration:none;font-size:.86rem;font-weight:700;color:var(--muted);padding:.35rem .6rem;border-radius:8px;white-space:nowrap}
@@ -78,6 +80,7 @@ td:first-child{font-weight:700;color:var(--head);white-space:nowrap}
 .four{margin:1.3rem 0 0;padding-left:1.3rem;display:grid;gap:.4rem}
 .four li{font-weight:700}
 
+/* 老師工具 */
 #tools{position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;flex-direction:column;align-items:flex-end;gap:.6rem}
 #panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1rem;box-shadow:0 12px 34px rgba(16,18,27,.22);width:min(19rem,calc(100vw - 28px));display:grid;gap:.9rem}
 #clock{font-family:var(--mono);font-size:3.1rem;font-weight:600;text-align:center;line-height:1;font-variant-numeric:tabular-nums;color:var(--head)}
@@ -92,6 +95,7 @@ button.pri{background:var(--accent);color:var(--accent-fg);border-color:transpar
 footer .wrap{padding-block:2rem 3rem;color:var(--muted);font-size:.86rem}
 @media (prefers-reduced-motion:no-preference){#draw{transition:opacity .12s}}
 
+/* 首頁 */
 .hero .wrap{padding-block:3rem 2.6rem;display:flex;flex-direction:column;gap:1.1rem}
 .hero p{max-width:40rem}
 .weeks{display:grid;gap:.7rem;margin-top:1.4rem}
@@ -108,3 +112,25 @@ footer .wrap{padding-block:2rem 3rem;color:var(--muted);font-size:.86rem}
 .cite b{color:var(--fg)}
 .back{display:inline-block;margin-bottom:.4rem;font-size:.85rem;color:#C9D0F2;text-decoration:none;font-weight:700}
 .back:hover{text-decoration:underline}
+
+/* ===== 投影模式 ===== */
+body.pres{overflow:hidden;font-size:19px}
+body.pres>header,body.pres>nav,body.pres>footer{display:none}
+body.pres section{position:fixed;inset:0;border-top:0;display:none;overflow-y:auto;z-index:20;background:var(--bg)}
+body.pres section.on{display:block}
+body.pres section>.wrap{max-width:62rem;min-height:100dvh;display:flex;flex-direction:column;justify-content:center;padding-block:3rem 5.5rem}
+body.pres h2{font-size:clamp(1.9rem,4.4vw,3rem)}
+body.pres .stage em{font-size:1rem}
+body.pres .q strong{font-size:clamp(1.35rem,3.4vw,2.1rem)}
+body.pres video{width:auto;max-width:100%;max-height:58dvh;margin:1.1rem auto 0}
+body.pres figcaption{text-align:center}
+body.pres .psg li{padding:.7rem 1rem}
+body.pres .steps li{padding-block:.5rem}
+body.pres #tools{display:none}
+#presbar{position:fixed;left:50%;transform:translateX(-50%);bottom:max(14px,env(safe-area-inset-bottom,0px));z-index:60;display:none;gap:.4rem;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:.35rem .5rem;box-shadow:0 6px 24px rgba(0,0,0,.18)}
+body.pres #presbar{display:flex}
+#presbar button{font:inherit;font-size:.9rem;font-weight:700;border:0;background:transparent;color:var(--fg);padding:.3rem .7rem;border-radius:999px;cursor:pointer}
+#presbar button:hover{background:var(--bg)}
+#presbar .pri{background:var(--head);color:#fff}
+#presnum{font-family:var(--mono);font-size:.85rem;color:var(--muted);padding-inline:.3rem}
+.brk{display:none}
