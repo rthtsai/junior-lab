@@ -24,12 +24,28 @@
 </header>
 
 <nav><div class="wrap">
+  <a href="#open">開場</a>
   <a href="#explore">第一段 探索任務</a>
   <a href="#quiz">第二段 小測</a>
   <a href="#apply">第三段 應用任務</a>
   <a href="#report">抽人報告</a>
   <a href="#homework">下週要交</a>
+  <a href="#close">收尾</a>
 </div></nav>
+
+<section id="open"><div class="wrap">
+  <div class="stage"><em>第 1 節　0–10 分</em><h2>這一年半我們要做什麼</h2></div>
+  <ol class="steps">
+    <li><div><h3>目標</h3><p>不是「上完一門課」。是拿一份國際競賽成績，然後寫出一篇論文。</p></div></li>
+    <li><div><h3>競賽</h3><p>叫 shared task：全世界的隊伍拿同一份題目、同一份文件、同一套評分標準，比誰的系統準。</p></div></li>
+    <li><div><h3>時程</h3><p>今年打基礎 → 明年春天投成績 → 高二四月開始寫論文。</p></div></li>
+    <li><div><h3>條件</h3><p>每週至少五小時，一路做到高二四月。這件事沒辦法補課。</p></div></li>
+  </ol>
+  <p class="rule">想做自己的題目？可以，但順序固定：<strong>先跟大家把共同任務完整跑一輪</strong>，交出一次成績，之後再提。共同任務把題目、資料、評分標準都準備好了，你只要專心學怎麼做研究；自己的題目這三樣要自己生，沒跑過一輪的人生不出來。</p>
+
+  <div class="q"><small>先換你們講一句，一人 30 秒</small><strong>你最近一次問 AI 的問題是什麼？它答得好不好？</strong></div>
+  <p class="rule">照號次 1 到 5 輪流。你的號次老師寫在白板上，整學期不變：第 1 組＝1、2 號，第 2 組＝3、4、5 號。</p>
+</div></section>
 
 <section id="explore"><div class="wrap">
   <div class="stage"><em>第 1 節　10–30 分</em><h2>換你們當一次搜尋引擎</h2></div>
@@ -55,6 +71,13 @@
 
   <p class="rule">prompt 不可以叫 AI 幫你寫。判斷誰對、理由，要自己寫。沒貼 prompt 原句的，任務單不算完成。</p>
   <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSfULBtLn2234iSqppObPEdQIfPqOFR4yDD93SHkO-a8iCyWVQ/viewform" target="_blank" rel="noopener">開啟探索任務表單 →</a>
+</div></section>
+
+<section id="review" hidden><div class="wrap">
+  <div class="stage"><em>第 1 節　36–45 分</em><h2>第一段點評</h2></div>
+  <figure style="margin:0"><video controls preload="metadata" src="w01-review.mp4"></video>
+    <figcaption>標準答案與三個概念（2 分 48 秒）</figcaption></figure>
+  <p class="rule">播完追一句：「你憑什麼說 AI 錯？」</p>
 </div></section>
 
 <section id="quiz"><div class="wrap">
@@ -124,6 +147,16 @@
   </ol>
 </div></section>
 
+<section id="close"><div class="wrap">
+  <div class="stage"><em>第 2 節　44–45 分</em><h2>回到今天的三個字</h2></div>
+  <ol class="steps">
+    <li><div><h3>檢索</h3><p>你們今天就是檢索器。排序排得準不準，就是這一年要改的東西。</p></div></li>
+    <li><div><h3>依據</h3><p>答得再順，指不出哪一段支持它，就是幻覺。</p></div></li>
+    <li><div><h3>評分</h3><p>Recall@k 不是數學題，是讓全世界的隊伍可以公平比較。</p></div></li>
+  </ol>
+  <p class="rule">下週見。做不出來也要來，把卡住的地方寫下來。</p>
+</div></section>
+
 <footer><div class="wrap">
   今天做的事就是國際共同任務的縮小版——同一個題目、同一份資料、同一套評分標準。差別只在真正的競賽有幾萬段文件，所以要寫程式。
 </div></footer>
@@ -139,6 +172,10 @@
       <div class="row" style="margin-top:.4rem">
         <button data-min="20">20 分</button><button data-min="7">7 分</button><button data-min="5">5 分</button>
       </div>
+    </div>
+    <div style="border-top:1px solid var(--line);padding-top:.8rem">
+      <div class="row"><input id="code" type="password" inputmode="numeric" placeholder="解鎖點評" style="flex:1;min-width:0;padding:.45rem .6rem;border:1px solid var(--line);border-radius:6px;font:inherit">
+      <button id="unlock">解鎖</button></div>
     </div>
     <div style="border-top:1px solid var(--line);padding-top:.8rem">
       <div id="draw">–</div>
@@ -178,6 +215,17 @@
     b.addEventListener('click',function(){stop();total=parseInt(b.dataset.min,10)*60;left=total;show();});
   });
   show();
+
+  var unlock=document.getElementById('unlock');
+  function tryUnlock(){
+    var v=document.getElementById('code').value.trim();
+    if(v!=='1016'){unlock.textContent='再試';setTimeout(function(){unlock.textContent='解鎖';},900);return;}
+    document.getElementById('review').hidden=false;
+    unlock.textContent='已解鎖';
+    document.getElementById('review').scrollIntoView({behavior:'smooth'});
+  }
+  unlock.addEventListener('click',tryUnlock);
+  document.getElementById('code').addEventListener('keydown',function(e){if(e.key==='Enter')tryUnlock();});
 
   var pool=[1,2,3,4,5],used=[],dr=document.getElementById('draw'),dn=document.getElementById('drawn');
   function paint(){dn.textContent=used.length?('已抽：'+used.join('、')+'（剩 '+(pool.length-used.length)+' 位）'):'尚未抽號';}
