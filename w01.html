@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>第 1 堂 檢索與問答 — Junior Lab</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="./">← Junior Lab</a>
+    <span class="kicker">AI 專題・第 1 堂・2026/10/16</span>
+    <h1>AI 怎麼在一大堆文件裡找出答案？</h1>
+    <p>今天要帶走三個字。接下來一年半，每一堂課都繞著它們轉。</p>
+    <div class="three">
+      <span><b>檢索</b>　先找出可能有答案的段落</span>
+      <span><b>依據</b>　答案要指得出哪一句支持它</span>
+      <span><b>評分</b>　怎麼證明你比別人準</span>
+    </div>
+  </div>
+</header>
+
+<nav><div class="wrap">
+  <a href="#explore">第一段 探索任務</a>
+  <a href="#quiz">第二段 小測</a>
+  <a href="#apply">第三段 應用任務</a>
+  <a href="#report">抽人報告</a>
+  <a href="#homework">下週要交</a>
+</div></nav>
+
+<section id="explore"><div class="wrap">
+  <div class="stage"><em>第 1 節　10–30 分</em><h2>換你們當一次搜尋引擎</h2></div>
+  <p class="lead">兩組，一組交一份。三個步驟的順序不能顛倒。</p>
+  <figure style="margin:0"><video controls preload="metadata" src="w01-explore.mp4"></video>
+    <figcaption>任務說明（1 分 33 秒）</figcaption></figure>
+
+  <div class="q"><small>題目</small><strong>為什麼青少年比成年人更晚才想睡？</strong></div>
+
+  <ul class="psg">
+    <li><b>A</b><p>青少年每天建議睡滿 8 到 10 小時，但台灣高中生平均只睡 6.5 小時。長期睡眠不足的青少年，在記憶測驗上的表現較差，情緒起伏也較大。</p></li>
+    <li><b>B</b><p>進入青春期之後，體內褪黑激素的分泌高峰會向後位移約兩個小時，整體生理時鐘延後，入睡驅力出現的時刻因此比兒童及成人都來得遲。</p></li>
+    <li><b>C</b><p>睡前使用手機、平板所發出的藍光，會抑制褪黑激素的分泌，使入睡時間往後延。</p></li>
+    <li><b>D</b><p>成年人若長期晚睡，罹患高血壓與心血管疾病的風險會明顯增加。</p></li>
+    <li><b>E</b><p>許多學校的第一節課在早上七點半開始。有研究建議將上課時間延後，以改善學生的出席率與成績。</p></li>
+  </ul>
+
+  <ol class="steps">
+    <li><div><h3>先不准用 AI　約 7 分鐘</h3><p>自己讀 A–E，排出最能回答到最不能回答。五個排名各寫一句理由，寫不出理由的排名不算。</p></div></li>
+    <li><div><h3>再用 AI 排一次　約 7 分鐘</h3><p>把題目和五段貼給 ChatGPT 或 Gemini，請它排序。你打進去的那句話要一字不改抄下來。</p></div></li>
+    <li><div><h3>比較　約 6 分鐘</h3><p>你和 AI 差在哪？誰對？你憑什麼說誰對？最後找出那個「字面重疊最多但答不到」的段落。</p></div></li>
+  </ol>
+
+  <p class="rule">prompt 不可以叫 AI 幫你寫。判斷誰對、理由，要自己寫。沒貼 prompt 原句的，任務單不算完成。</p>
+  <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSfULBtLn2234iSqppObPEdQIfPqOFR4yDD93SHkO-a8iCyWVQ/viewform" target="_blank" rel="noopener">開啟探索任務表單 →</a>
+</div></section>
+
+<section id="quiz"><div class="wrap">
+  <div class="stage"><em>第 2 節　0–10 分</em><h2>小測，六題，馬上公布分數</h2></div>
+  <p class="lead">考的就是剛剛那五件事：檢索與生成兩步、字面比對的陷阱、相關性有程度、Recall@k 的分母、為什麼答案要有依據。作答時不收姓名，只選自己的號次。</p>
+  <p class="rule">老師會在課堂上投影小測連結。只講錯最多的那一兩題，其他留著下次考。</p>
+</div></section>
+
+<section id="apply"><div class="wrap">
+  <div class="stage"><em>第 2 節　10–30 分</em><h2>把 AI 變成你的檢索器</h2></div>
+  <p class="lead">倒數 20 分鐘，時間到不管做完沒做完都要送出。</p>
+  <figure style="margin:0"><video controls preload="metadata" src="w01-apply.mp4"></video>
+    <figcaption>任務說明（1 分 36 秒）</figcaption></figure>
+
+  <div class="q"><small>新題目</small><strong>為什麼下午喝的咖啡，到了晚上還會影響睡眠？</strong></div>
+
+  <ul class="psg">
+    <li><b>F</b><p>咖啡因在人體內的半衰期約 5 到 6 小時。下午三點喝下的一杯咖啡，到了晚上九點，體內仍有大約一半的咖啡因在作用。</p></li>
+    <li><b>G</b><p>咖啡因的作用方式是佔住大腦中接收「睏意訊號」的受體，讓這個訊號傳不進去，於是人感覺不到累。</p></li>
+    <li><b>H</b><p>咖啡豆的風味會因產地而有明顯差異。淺焙通常保留較多酸味，深焙則偏苦甜。</p></li>
+    <li><b>I</b><p>有些人天生代謝咖啡因的速度較慢，同樣的分量對他們的影響會持續更久。</p></li>
+    <li><b>J</b><p>睡前喝酒雖然比較容易入睡，但會讓後半夜的睡眠變淺、容易醒來。</p></li>
+  </ul>
+
+  <ol class="steps">
+    <li><div><h3>寫 prompt　約 8 分鐘</h3><p>三件事少一件就扣分：要求排序、要求每段引用依據句（原文照抄的那一句）、說清楚判斷標準是「能不能回答這個問題」。</p></div></li>
+    <li><div><h3>實際跑一次　約 5 分鐘</h3><p>把 AI 的輸出整段貼回表單。</p></div></li>
+    <li><div><h3>算 Recall@2　約 3 分鐘</h3><p>老師公布標準答案的前兩名後，看你的前兩名命中幾個，除以 2。</p></div></li>
+    <li><div><h3>寫一句改進說明　約 4 分鐘</h3><p>哪一句要改、改成什麼、為什麼會變好。寫「再講清楚一點」零分。</p></div></li>
+  </ol>
+
+  <p class="rule">prompt 自己寫，不可以叫 AI 幫你寫。跑排序一定要用 AI。算分和改進說明自己來。</p>
+  <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSegNqsiYLOxAdHedrsBQGHNS2vgYh-LvEzU9f8pvjfZsXe5OQ/viewform" target="_blank" rel="noopener">開啟應用任務表單 →</a>
+</div></section>
+
+<section id="report"><div class="wrap">
+  <div class="stage"><em>第 2 節　30–42 分</em><h2>抽人報告，90 秒</h2></div>
+  <figure style="margin:0"><video controls preload="metadata" src="w01-report.mp4"></video>
+    <figcaption>報告規則與評分標準（1 分 22 秒）</figcaption></figure>
+  <ol class="four">
+    <li>我的 prompt 原文（唸你自己加的那個關鍵要求就好）</li>
+    <li>AI 給的排名</li>
+    <li>我的 Recall@2</li>
+    <li>我要改哪一句、為什麼</li>
+  </ol>
+  <p class="rule">抽到沒準備可以說「沒準備」，記 0 分、這次不算，馬上抽下一位。評審從還沒上台的人裡抽兩位。</p>
+  <div class="tw"><table>
+    <thead><tr><th>項目</th><th>1 分</th><th>3 分</th><th>5 分</th></tr></thead>
+    <tbody>
+      <tr><td>有用到今天的概念</td><td>只說「幫我找答案」</td><td>有要排序，沒要依據句</td><td>排序＋依據句＋「能不能回答」三項都有</td></tr>
+      <tr><td>內容正確</td><td>Recall@2 ＝ 0</td><td>Recall@2 ＝ 0.5</td><td>Recall@2 ＝ 1.0，且說得出 H 為何是陷阱</td></tr>
+      <tr><td>有自己的想法</td><td>寫「講清楚一點」</td><td>指出要改哪句，沒說為什麼</td><td>哪一句、改成什麼、為什麼會變好</td></tr>
+      <tr><td>表達清楚</td><td>唸稿、聽不懂</td><td>講得完但沒到重點</td><td>90 秒內讓大家聽懂你的 prompt 設計</td></tr>
+    </tbody>
+  </table></div>
+</div></section>
+
+<section id="homework"><div class="wrap">
+  <div class="stage"><em>第 2 節　42–45 分</em><h2>下週要交</h2></div>
+  <figure style="margin:0"><video controls preload="metadata" src="w01-homework.mp4"></video>
+    <figcaption>收尾與作業（1 分 01 秒）</figcaption></figure>
+  <ol class="steps">
+    <li><div><h3>看影片，寫三行筆記</h3><p>李宏毅《機器學習》第一講。重點不是你聽懂什麼，是<strong>哪一句你聽不懂</strong>。<br><a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.php" target="_blank" rel="noopener">speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.php</a></p></div></li>
+    <li><div><h3>弄好環境</h3><p>確認 Google 帳號可以開 Google Colab，跑出一行 <code>print("hello")</code> 並截圖。這一項沒弄好，下週會卡住。</p></div></li>
+    <li><div><h3>改一次 prompt</h3><p>把今天的 prompt 改一次、重跑，記下 Recall@2 有沒有變好。</p></div></li>
+  </ol>
+</div></section>
+
+<footer><div class="wrap">
+  今天做的事就是國際共同任務的縮小版——同一個題目、同一份資料、同一套評分標準。差別只在真正的競賽有幾萬段文件，所以要寫程式。
+</div></footer>
+
+<div id="tools">
+  <div id="panel" hidden>
+    <div>
+      <div id="clock">20:00</div>
+      <div class="row" style="margin-top:.6rem">
+        <button id="go" class="pri">開始</button>
+        <button id="reset">重設</button>
+      </div>
+      <div class="row" style="margin-top:.4rem">
+        <button data-min="20">20 分</button><button data-min="7">7 分</button><button data-min="5">5 分</button>
+      </div>
+    </div>
+    <div style="border-top:1px solid var(--line);padding-top:.8rem">
+      <div id="draw">–</div>
+      <div id="drawn">尚未抽號</div>
+      <div class="row" style="margin-top:.5rem">
+        <button id="spin" class="pri">抽一個號次</button>
+        <button id="clear">重來</button>
+      </div>
+    </div>
+  </div>
+  <button class="toggle" id="tgl" aria-expanded="false">老師工具</button>
+</div>
+
+<script>
+(function(){
+  var panel=document.getElementById('panel'),tgl=document.getElementById('tgl');
+  tgl.addEventListener('click',function(){
+    var open=panel.hidden; panel.hidden=!open; tgl.setAttribute('aria-expanded',String(open));
+    tgl.textContent=open?'收起':'老師工具';
+  });
+
+  var total=20*60,left=total,timer=null,clock=document.getElementById('clock'),go=document.getElementById('go');
+  function show(){
+    var m=Math.floor(left/60),s=left%60;
+    clock.textContent=m+':'+(s<10?'0':'')+s;
+    clock.classList.toggle('low',left<=60);
+  }
+  function stop(){clearInterval(timer);timer=null;go.textContent='開始';}
+  go.addEventListener('click',function(){
+    if(timer){stop();return;}
+    if(left<=0)left=total;
+    go.textContent='暫停';
+    timer=setInterval(function(){left--;if(left<=0){left=0;show();stop();return;}show();},1000);
+  });
+  document.getElementById('reset').addEventListener('click',function(){stop();left=total;show();});
+  Array.prototype.forEach.call(document.querySelectorAll('[data-min]'),function(b){
+    b.addEventListener('click',function(){stop();total=parseInt(b.dataset.min,10)*60;left=total;show();});
+  });
+  show();
+
+  var pool=[1,2,3,4,5],used=[],dr=document.getElementById('draw'),dn=document.getElementById('drawn');
+  function paint(){dn.textContent=used.length?('已抽：'+used.join('、')+'（剩 '+(pool.length-used.length)+' 位）'):'尚未抽號';}
+  document.getElementById('spin').addEventListener('click',function(){
+    var rest=pool.filter(function(n){return used.indexOf(n)<0;});
+    if(!rest.length){dr.textContent='✓';dn.textContent='五位都抽過了';return;}
+    var n=rest[Math.floor(Math.random()*rest.length)];
+    used.push(n);dr.textContent=n;paint();
+  });
+  document.getElementById('clear').addEventListener('click',function(){used=[];dr.textContent='–';paint();});
+})();
+</script>
+</body>
+</html>
