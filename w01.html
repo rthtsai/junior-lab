@@ -43,6 +43,8 @@
   </ol>
   <p class="rule">想做自己的題目？可以，但順序固定：<strong>先跟大家把共同任務完整跑一輪</strong>，交出一次成績，之後再提。共同任務把題目、資料、評分標準都準備好了，你只要專心學怎麼做研究；自己的題目這三樣要自己生，沒跑過一輪的人生不出來。</p>
 
+  <div class="brk"></div>
+
   <div class="q"><small>先換你們講一句，一人 30 秒</small><strong>你最近一次問 AI 的問題是什麼？它答得好不好？</strong></div>
   <p class="rule">照號次 1 到 5 輪流。你的號次老師寫在白板上，整學期不變：第 1 組＝1、2 號，第 2 組＝3、4、5 號。</p>
 </div></section>
@@ -53,6 +55,8 @@
   <figure style="margin:0"><video controls preload="metadata" src="w01-explore.mp4"></video>
     <figcaption>任務說明（1 分 33 秒）</figcaption></figure>
 
+  <div class="brk"></div>
+
   <div class="q"><small>題目</small><strong>為什麼青少年比成年人更晚才想睡？</strong></div>
 
   <ul class="psg">
@@ -62,6 +66,8 @@
     <li><b>D</b><p>成年人若長期晚睡，罹患高血壓與心血管疾病的風險會明顯增加。</p></li>
     <li><b>E</b><p>許多學校的第一節課在早上七點半開始。有研究建議將上課時間延後，以改善學生的出席率與成績。</p></li>
   </ul>
+
+  <div class="brk"></div>
 
   <ol class="steps">
     <li><div><h3>先不准用 AI　約 7 分鐘</h3><p>自己讀 A–E，排出最能回答到最不能回答。五個排名各寫一句理由，寫不出理由的排名不算。</p></div></li>
@@ -93,6 +99,8 @@
   <figure style="margin:0"><video controls preload="metadata" src="w01-apply.mp4"></video>
     <figcaption>任務說明（1 分 36 秒）</figcaption></figure>
 
+  <div class="brk"></div>
+
   <div class="q"><small>新題目</small><strong>為什麼下午喝的咖啡，到了晚上還會影響睡眠？</strong></div>
 
   <ul class="psg">
@@ -102,6 +110,8 @@
     <li><b>I</b><p>有些人天生代謝咖啡因的速度較慢，同樣的分量對他們的影響會持續更久。</p></li>
     <li><b>J</b><p>睡前喝酒雖然比較容易入睡，但會讓後半夜的睡眠變淺、容易醒來。</p></li>
   </ul>
+
+  <div class="brk"></div>
 
   <ol class="steps">
     <li><div><h3>寫 prompt　約 8 分鐘</h3><p>三件事少一件就扣分：要求排序、要求每段引用依據句（原文照抄的那一句）、說清楚判斷標準是「能不能回答這個問題」。</p></div></li>
@@ -125,6 +135,8 @@
     <li>我要改哪一句、為什麼</li>
   </ol>
   <p class="rule">抽到沒準備可以說「沒準備」，記 0 分、這次不算，馬上抽下一位。評審從還沒上台的人裡抽兩位。</p>
+  <div class="brk"></div>
+
   <div class="tw"><table>
     <thead><tr><th>項目</th><th>1 分</th><th>3 分</th><th>5 分</th></tr></thead>
     <tbody>
@@ -172,6 +184,9 @@
       <div class="row" style="margin-top:.4rem">
         <button data-min="20">20 分</button><button data-min="7">7 分</button><button data-min="5">5 分</button>
       </div>
+      <div class="row" style="margin-top:.6rem">
+        <button id="pstart" class="pri" style="flex:1">投影模式</button>
+      </div>
     </div>
     <div style="border-top:1px solid var(--line);padding-top:.8rem">
       <div class="row"><input id="code" type="password" inputmode="numeric" placeholder="解鎖點評" style="flex:1;min-width:0;padding:.45rem .6rem;border:1px solid var(--line);border-radius:6px;font:inherit">
@@ -187,6 +202,13 @@
     </div>
   </div>
   <button class="toggle" id="tgl" aria-expanded="false">老師工具</button>
+</div>
+
+<div id="presbar">
+  <button id="pprev">‹</button>
+  <span id="presnum">1 / 1</span>
+  <button id="pnext" class="pri">下一頁 ›</button>
+  <button id="pexit">離開</button>
 </div>
 
 <script>
@@ -216,13 +238,97 @@
   });
   show();
 
+
+  // ===== 投影模式 =====
+  var bar=document.getElementById('presbar'),num=document.getElementById('presnum');
+  var P={list:[],i:0,on:false};
+  function collect(){
+    P.list=[];
+    Array.prototype.forEach.call(document.querySelectorAll('body > section'),function(sec){
+      if(sec.hidden) return;
+      var wrap=sec.querySelector('.wrap'); if(!wrap) return;
+      var stage=wrap.querySelector('.stage');
+      var groups=[[]];
+      Array.prototype.forEach.call(wrap.children,function(k){
+        if(k.classList.contains('brk')){groups.push([]);return;}
+        if(k===stage) return;
+        groups[groups.length-1].push(k);
+      });
+      groups=groups.filter(function(g){return g.length;});
+      if(!groups.length) groups=[[]];
+      groups.forEach(function(g){P.list.push({sec:sec,stage:stage,keep:g});});
+    });
+  }
+  function showAll(sec){
+    var wrap=sec.querySelector('.wrap'); if(!wrap) return;
+    Array.prototype.forEach.call(wrap.children,function(k){
+      if(!k.classList.contains('brk')) k.style.display='';
+    });
+  }
+  function paintSlide(){
+    var cur=P.list[P.i];
+    P.list.forEach(function(it){
+      if(it.sec!==cur.sec){
+        it.sec.classList.remove('on'); showAll(it.sec);
+        Array.prototype.forEach.call(it.sec.querySelectorAll('video'),function(v){v.pause();});
+      }
+    });
+    cur.sec.classList.add('on'); cur.sec.scrollTop=0;
+    var wrap=cur.sec.querySelector('.wrap');
+    Array.prototype.forEach.call(wrap.children,function(k){
+      if(k.classList.contains('brk')) return;
+      if(k===cur.stage){k.style.display='';return;}
+      var keep=cur.keep.indexOf(k)>=0;
+      if(!keep){
+        Array.prototype.forEach.call(k.querySelectorAll('video'),function(v){v.pause();});
+      }
+      k.style.display=keep?'':'none';
+    });
+    num.textContent=(P.i+1)+' / '+P.list.length;
+  }
+  function presOn(){
+    collect(); if(!P.list.length) return;
+    P.on=true; P.i=0; document.body.classList.add('pres');
+    if(panel&&!panel.hidden){panel.hidden=true;tgl.setAttribute('aria-expanded','false');tgl.textContent='老師工具';}
+    paintSlide();
+    if(document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function(){});
+  }
+  function presOff(){
+    P.on=false; document.body.classList.remove('pres');
+    var cur=P.list[P.i]&&P.list[P.i].sec;
+    P.list.forEach(function(it){it.sec.classList.remove('on');showAll(it.sec);
+      Array.prototype.forEach.call(it.sec.querySelectorAll('video'),function(v){v.pause();});});
+    if(document.fullscreenElement&&document.exitFullscreen) document.exitFullscreen().catch(function(){});
+    if(cur) cur.scrollIntoView();
+  }
+  function step(d){
+    if(!P.on) return;
+    var n=P.i+d; if(n<0||n>=P.list.length) return;
+    P.i=n; paintSlide();
+  }
+  document.getElementById('pstart').addEventListener('click',presOn);
+  document.getElementById('pnext').addEventListener('click',function(){step(1);});
+  document.getElementById('pprev').addEventListener('click',function(){step(-1);});
+  document.getElementById('pexit').addEventListener('click',presOff);
+  document.addEventListener('keydown',function(e){
+    if(e.target&&/^(INPUT|TEXTAREA)$/.test(e.target.tagName)) return;
+    if(!P.on){ if(e.key==='p'||e.key==='P'){presOn();} return; }
+    if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key==='PageDown'){e.preventDefault();step(1);}
+    else if(e.key==='ArrowLeft'||e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();step(-1);}
+    else if(e.key==='Escape'){presOff();}
+  });
+  document.addEventListener('fullscreenchange',function(){
+    if(!document.fullscreenElement&&P.on) presOff();
+  });
+
   var unlock=document.getElementById('unlock');
   function tryUnlock(){
     var v=document.getElementById('code').value.trim();
     if(v!=='1016'){unlock.textContent='再試';setTimeout(function(){unlock.textContent='解鎖';},900);return;}
     document.getElementById('review').hidden=false;
     unlock.textContent='已解鎖';
-    document.getElementById('review').scrollIntoView({behavior:'smooth'});
+    if(P.on){var c=P.list[P.i];collect();for(var j=0;j<P.list.length;j++){if(P.list[j].sec===c.sec&&P.list[j].keep[0]===c.keep[0]){P.i=j;break;}}paintSlide();}
+    else document.getElementById('review').scrollIntoView({behavior:'smooth'});
   }
   unlock.addEventListener('click',tryUnlock);
   document.getElementById('code').addEventListener('keydown',function(e){if(e.key==='Enter')tryUnlock();});
