@@ -1,3 +1,4 @@
+[hidden]{display:none!important}
 /* 單欄順序流程：頁首 → 三段課程帶 → 收尾；老師工具浮在右下 */
 :root{
   --bg:#F7F8FC; --surface:#FFFFFF; --fg:#15171F; --muted:#5A6177; --line:#DDE1ED;
