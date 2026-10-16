@@ -1,21 +1,21 @@
 [hidden]{display:none!important}
 /* 單欄順序流程：頁首 → 三段課程帶 → 收尾；老師工具浮在右下 */
 :root{
-  --bg:#F7F8FC; --surface:#FFFFFF; --fg:#15171F; --muted:#5A6177; --line:#DDE1ED;
-  --band:#2F3C7E; --band-fg:#FFFFFF; --band-soft:#3B4A94;
-  --head:#2F3C7E; --accent:#E8484F; --accent-fg:#FFFFFF; --gold:#8A6400; --gold-soft:#FBF3D4;
+  --bg:#F7F8FC; --surface:#FFFFFF; --fg:#15192B; --muted:#5C6487; --line:#D9DEEF;
+  --band:#23306B; --band-fg:#FFFFFF; --band-soft:#2B3878;
+  --head:#23306B; --accent:#C0392F; --accent-fg:#FFFFFF; --gold:#23306B; --gold-soft:#EEF1F8;
   --sans:"Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#10121B; --surface:#191D2A; --fg:#ECEEF6; --muted:#98A0BA; --line:#2A3048;
-  --band:#222A54; --band-fg:#EEF0F8; --band-soft:#2C3566;
-  --head:#AEBBF5; --accent:#FF7E84; --accent-fg:#1A0C0D; --gold:#F6DF9A; --gold-soft:#2B2614;
+  --bg:#0F1120; --surface:#171B2C; --fg:#ECEEF6; --muted:#A8B2D6; --line:#2A3150;
+  --band:#1B2454; --band-fg:#FFFFFF; --band-soft:#243063;
+  --head:#B4BEE8; --accent:#F08A7F; --accent-fg:#1A0C0D; --gold:#CBD2EA; --gold-soft:#1E2746;
   color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#10121B; --surface:#191D2A; --fg:#ECEEF6; --muted:#98A0BA; --line:#2A3048;
-  --band:#222A54; --band-fg:#EEF0F8; --band-soft:#2C3566;
-  --head:#AEBBF5; --accent:#FF7E84; --accent-fg:#1A0C0D; --gold:#F6DF9A; --gold-soft:#2B2614;
+  --bg:#0F1120; --surface:#171B2C; --fg:#ECEEF6; --muted:#A8B2D6; --line:#2A3150;
+  --band:#1B2454; --band-fg:#FFFFFF; --band-soft:#243063;
+  --head:#B4BEE8; --accent:#F08A7F; --accent-fg:#1A0C0D; --gold:#CBD2EA; --gold-soft:#1E2746;
   color-scheme:dark}
 
 *{box-sizing:border-box}
@@ -31,10 +31,10 @@ a{color:inherit}
 /* 頁首 */
 header{background:var(--band);color:var(--band-fg)}
 header .wrap{padding-block:2.2rem 2rem;display:flex;flex-direction:column;gap:1.1rem}
-.kicker{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:#C9D0F2;font-weight:700}
+.kicker{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:#CBD2EA;font-weight:700}
 .three{display:flex;flex-wrap:wrap;gap:.6rem}
 .three span{background:var(--band-soft);border-radius:999px;padding:.3rem .9rem;font-weight:700;font-size:.92rem}
-.three b{color:#FFC9CB}
+.three b{color:#F08A7F}
 
 /* 導覽 */
 nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--surface);border-bottom:1px solid var(--line)}
@@ -52,7 +52,7 @@ video{width:100%;max-width:100%;border-radius:12px;display:block;margin-top:1.3r
 figcaption{font-size:.82rem;color:var(--muted);margin-top:.4rem}
 
 .q{background:var(--band);color:var(--band-fg);border-radius:12px;padding:1rem 1.2rem;margin-top:1.4rem}
-.q small{display:block;font-size:.78rem;letter-spacing:.1em;color:#C9D0F2;font-weight:700;margin-bottom:.15rem}
+.q small{display:block;font-size:.78rem;letter-spacing:.1em;color:#CBD2EA;font-weight:700;margin-bottom:.15rem}
 .q strong{font-size:clamp(1.05rem,3vw,1.3rem);font-weight:900}
 
 .psg{display:grid;gap:.6rem;margin-top:1.2rem}
@@ -110,7 +110,7 @@ footer .wrap{padding-block:2rem 3rem;color:var(--muted);font-size:.86rem}
 .road b{font-family:var(--mono);font-size:.85rem;font-weight:600;color:var(--head)}
 .cite{background:var(--gold-soft);border:1px solid var(--line);border-radius:8px;padding:.9rem 1.1rem;margin-top:1rem;font-size:.9rem;color:var(--muted)}
 .cite b{color:var(--fg)}
-.back{display:inline-block;margin-bottom:.4rem;font-size:.85rem;color:#C9D0F2;text-decoration:none;font-weight:700}
+.back{display:inline-block;margin-bottom:.4rem;font-size:.85rem;color:#CBD2EA;text-decoration:none;font-weight:700}
 .back:hover{text-decoration:underline}
 
 /* ===== 投影模式 ===== */
