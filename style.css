@@ -144,3 +144,18 @@ body.pres #presbar{display:flex}
 @media (max-width:560px){.roster{grid-template-columns:repeat(3,1fr)}}
 body.pres .roster b{font-size:2.6rem}
 body.pres .roster span{font-size:1.05rem}
+
+/* QR */
+.qrbig{display:flex;gap:1.3rem;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.2rem;margin-top:1.4rem;flex-wrap:wrap}
+.qrbig>div{flex:1 1 18rem;min-width:0}
+.qrbig .qrimg{width:9rem;height:9rem;flex:0 0 auto;image-rendering:pixelated;background:#fff;border-radius:8px}
+.qrbig strong{display:block;font-size:1.15rem;color:var(--head)}
+.qrbig p{margin-top:.35rem;color:var(--muted);font-size:.95rem}
+.qrbig code{display:inline-block;margin-top:.5rem;font-family:var(--mono);font-size:.85rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:.15rem .5rem}
+.qrsmall{position:absolute;top:1.6rem;right:max(16px,env(safe-area-inset-right,0px));display:grid;justify-items:center;gap:.2rem;text-decoration:none;background:#fff;border-radius:10px;padding:.45rem .45rem .3rem}
+.qrsmall .qrimg{width:4.6rem;height:4.6rem;display:block;image-rendering:pixelated}
+.qrsmall span{font-size:.7rem;font-weight:700;color:#23306B;letter-spacing:.08em}
+header .wrap{position:relative}
+@media (max-width:720px){.qrsmall{display:none}}
+body.pres .qrbig .qrimg{width:13rem;height:13rem}
+body.pres .qrbig strong{font-size:1.5rem}
