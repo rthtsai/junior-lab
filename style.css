@@ -134,3 +134,13 @@ body.pres #presbar{display:flex}
 #presbar .pri{background:var(--head);color:#fff}
 #presnum{font-family:var(--mono);font-size:.85rem;color:var(--muted);padding-inline:.3rem}
 .brk{display:none}
+
+/* 號次表 */
+.rosh{margin-top:1.4rem;color:var(--head);font-size:1.05rem}
+.roster{display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem;margin:.9rem 0 0;padding:0}
+.roster li{list-style:none;background:var(--gold-soft);border:1px solid var(--line);border-radius:10px;padding:.9rem .4rem;text-align:center;min-width:0}
+.roster b{display:block;font-family:var(--mono);font-size:2rem;font-weight:600;color:var(--head);line-height:1.1}
+.roster span{display:block;margin-top:.3rem;font-size:.9rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:560px){.roster{grid-template-columns:repeat(3,1fr)}}
+body.pres .roster b{font-size:2.6rem}
+body.pres .roster span{font-size:1.05rem}
