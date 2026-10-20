@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Week 7 — Research Methods and Evaluation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@600;700&display=swap">
+<style>
+/* ===========================================================================
+   EDIT ME — paste the Google Form links here once the TAs send them.
+   Leave a value as "" and that button simply shows as "not open yet".
+   =========================================================================== */
+:root{
+  --bg:#FBFBFD; --surface:#FFFFFF; --ink:#1C2033; --muted:#6A7186; --line:#D8DBEA;
+  --deep:#232B63; --amber:#B8801F; --amber-soft:#FDF3E2; --teal:#2E8B7F;
+  --shadow:0 1px 2px rgba(28,32,51,.05), 0 6px 20px rgba(28,32,51,.05);
+  --display:"Source Serif 4",Cambria,Georgia,serif;
+  --body:"Source Sans 3",Calibri,system-ui,-apple-system,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Consolas,monospace;
+  color-scheme:light;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#11141F; --surface:#1A1F30; --ink:#ECEEF6; --muted:#9AA2BC; --line:#2C3348;
+  --deep:#A6B1E8; --amber:#E8A33D; --amber-soft:#2A2314; --teal:#5FBFAF;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 6px 20px rgba(0,0,0,.3); color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#11141F; --surface:#1A1F30; --ink:#ECEEF6; --muted:#9AA2BC; --line:#2C3348;
+  --deep:#A6B1E8; --amber:#E8A33D; --amber-soft:#2A2314; --teal:#5FBFAF;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 6px 20px rgba(0,0,0,.3); color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+[hidden]{display:none!important}
+.wrap{max-width:780px;margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+.topbar{border-bottom:1px solid var(--line);background:var(--surface)}
+.topbar .wrap{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding-block:11px}
+.topbar b{font-family:var(--display);font-size:16px;color:var(--deep)}
+.topbar span{font-size:13px;color:var(--muted)}
+
+header.hero{background:var(--surface);border-bottom:1px solid var(--line)}
+header.hero .wrap{padding-block:36px 30px}
+.kicker{font-size:12.5px;font-weight:700;letter-spacing:.14em;color:var(--amber);
+  text-transform:uppercase;margin:0 0 10px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(29px,5.6vw,44px);line-height:1.16;
+  margin:0 0 16px;text-wrap:balance;color:var(--deep)}
+.lede{font-size:18.5px;color:var(--muted);margin:0 0 22px;max-width:58ch}
+.bigidea{background:var(--deep);border-radius:14px;padding:20px 22px;margin:0 0 20px}
+.bigidea p{margin:0;font-family:var(--display);font-size:clamp(18px,3vw,24px);font-weight:700;
+  line-height:1.35;color:#FFFFFF}
+:root[data-theme="dark"] .bigidea p{color:#0E1120}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bigidea p{color:#0E1120}}
+.three{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:13px}
+.three div{border:2px solid var(--line);border-radius:12px;padding:13px 15px;background:var(--bg);min-width:0}
+.three b{display:block;font-size:12.5px;letter-spacing:.09em;margin-bottom:4px}
+.three p{margin:0;font-size:14.5px;color:var(--muted)}
+.c1{border-color:var(--deep)!important}.c1 b{color:var(--deep)}
+.c2{border-color:var(--amber)!important}.c2 b{color:var(--amber)}
+.c3{border-color:var(--teal)!important}.c3 b{color:var(--teal)}
+
+nav.anchors{border-bottom:1px solid var(--line);background:var(--surface)}
+nav.anchors .wrap{display:flex;flex-wrap:wrap;gap:8px;padding-block:13px}
+nav.anchors a{font-size:13.5px;text-decoration:none;color:var(--deep);border:1px solid var(--line);
+  border-radius:999px;padding:5px 12px;background:var(--bg)}
+nav.anchors a:hover{border-color:var(--deep)}
+
+section .wrap{padding-block:34px}
+section{scroll-margin-top:12px}
+.when{font-family:var(--mono);font-size:12.5px;color:var(--amber);font-weight:700;
+  letter-spacing:.05em;margin:0 0 5px}
+h2{font-family:var(--display);font-size:clamp(22px,3.6vw,29px);margin:0 0 8px;color:var(--deep);
+  text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 16px;font-size:15.5px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;
+  box-shadow:var(--shadow);padding:19px 21px;margin:0 0 14px}
+.card h3{margin:0 0 9px;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--deep)}
+.card p:last-child{margin-bottom:0}
+ol,ul{margin:0;padding-left:21px}
+li{margin:0 0 8px}
+.pages{display:inline-block;font-family:var(--mono);font-size:13px;background:var(--amber-soft);
+  color:var(--amber);border-radius:6px;padding:2px 8px;font-weight:700}
+.note{border-left:3px solid var(--amber);padding:4px 0 4px 13px;color:var(--muted);
+  font-size:15.5px;margin:14px 0 0}
+table{width:100%;border-collapse:collapse;margin:12px 0 0;font-size:15px}
+th,td{text-align:left;padding:8px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+td.n{font-family:var(--mono);white-space:nowrap;font-variant-numeric:tabular-nums}
+.linkrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:15px}
+a.btn{font-family:var(--body);font-size:15px;font-weight:600;border-radius:10px;
+  border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:11px 16px;
+  text-decoration:none;display:inline-block}
+a.btn.go{background:var(--deep);border-color:var(--deep);color:var(--surface)}
+a.btn:hover{border-color:var(--amber)}
+a.btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+span.notyet{font-size:15px;color:var(--muted);border:1px dashed var(--line);
+  border-radius:10px;padding:11px 16px;display:inline-block}
+footer{border-top:1px solid var(--line);background:var(--surface)}
+footer .wrap{padding-block:26px 40px;color:var(--muted);font-size:14.5px}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <b>NCU CSIE · Natural Language Processing</b>
+  <span>Week 7 · Tuesday 20 October 2026 · 13:00–16:00</span>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <p class="kicker">Research Methods and Evaluation</p>
+  <h1>How do you know whether your number means anything?</h1>
+  <p class="lede">Everything for today is on this page: what we cover in each block, the forms you answer
+  in class, and what is due. Use the same address during class and afterwards.</p>
+  <div class="bigidea"><p>83.7 is not a result. It is one draw from a distribution you have not looked at.</p></div>
+  <div class="three">
+    <div class="c1"><b>A BASELINE</b><p>Something to compare it against, run by you, not copied from a paper.</p></div>
+    <div class="c2"><b>A SPREAD</b><p>How much it moves when nothing important changes.</p></div>
+    <div class="c3"><b>A TEST</b><p>Whether the difference could have happened by chance.</p></div>
+  </div>
+</div></header>
+
+<nav class="anchors"><div class="wrap">
+  <a href="#open">Opening</a>
+  <a href="#b1">Block 1</a>
+  <a href="#b2">Block 2</a>
+  <a href="#b3">Block 3</a>
+  <a href="#called">Being called on</a>
+  <a href="#due">Due</a>
+  <a href="#video">Video</a>
+</div></nav>
+
+<section id="open"><div class="wrap">
+  <p class="when">13:00 – 13:20 · OPENING</p>
+  <h2>Everybody scored 100 on the quiz. We start there.</h2>
+  <p class="sub"><span class="pages">slides 1–4</span></p>
+  <div class="card">
+    <table>
+      <tr><th>Answered</th><th>Mean</th><th>Per question</th><th>Identical answer sheets</th></tr>
+      <tr><td class="n">21 / 23</td><td class="n">100</td><td class="n">100%</td><td class="n">21 / 21</td></tr>
+    </table>
+    <p class="note">Questions 3, 7 and 9 were written so that one wrong option would feel right, and
+    nobody picked it. Three readings fit that table equally well: the class understands this, the answers
+    were shared, or the questions could be answered without reading. Nothing in the table separates them.
+    That is a number which looks excellent and measures nothing, and it is the first example of today's
+    subject. Nobody is in trouble.</p>
+    <div class="linkrow" data-slot="vid0"></div>
+  </div>
+</div></section>
+
+<section id="b1"><div class="wrap">
+  <p class="when">13:20 – 14:10 · BLOCK 1</p>
+  <h2>The claim, seed variance, baselines</h2>
+  <p class="sub"><span class="pages">slides 5–19</span> · key points 1 to 3</p>
+  <div class="card">
+    <h3>What we cover</h3>
+    <ol>
+      <li>What you are actually claiming when you write 83.7 in a table, and the two independent things
+        that can go wrong.</li>
+      <li>Seed variance: the same code and the same data give a different answer every run. Real figures
+        from a paper that measured it.</li>
+      <li>How many seeds is enough, and why reporting your best run is not a comparison.</li>
+      <li>Baselines: why 94% accuracy can mean your system learned nothing, and the three baselines to run.</li>
+      <li>Ablation: how to find out which part did the work.</li>
+    </ol>
+    <p class="note">Have your HW1 numbers open. I will ask how many runs yours came from.</p>
+    <div class="linkrow" data-slot="vid1"></div>
+  </div>
+  <div class="card">
+    <h3>Checkpoint 1 · about 14:10</h3>
+    <p>Three questions, ninety seconds, on your phone. One of them asks about your own HW1 and is not
+    graded — answer it honestly, it is the one I actually use.</p>
+    <div class="linkrow" data-slot="form1"></div>
+  </div>
+</div></section>
+
+<section id="b2"><div class="wrap">
+  <p class="when">14:25 – 15:10 · BLOCK 2</p>
+  <h2>The three splits, metrics, significance</h2>
+  <p class="sub"><span class="pages">slides 20–32</span> · key points 4 to 6 · break first</p>
+  <div class="card">
+    <h3>What we cover</h3>
+    <ol>
+      <li>Train, dev and test, and what each one is for. What tuning on the test set buys you, in points.</li>
+      <li>Why the test set is looked at once, and why the leak always flatters you.</li>
+      <li>Metrics: accuracy against F1, micro against macro, and what counts as a correct span in HW1.</li>
+      <li>The paired bootstrap, worked through on eight items, and why a t-test on two numbers is not a test.</li>
+    </ol>
+    <div class="linkrow" data-slot="vid2"></div>
+  </div>
+  <div class="card">
+    <h3>Checkpoint 2 · about 15:10</h3>
+    <p>Three questions. Again one of them is about your own HW1 and is not graded.</p>
+    <div class="linkrow" data-slot="form2"></div>
+  </div>
+</div></section>
+
+<section id="b3"><div class="wrap">
+  <p class="when">15:10 – 15:45 · BLOCK 3</p>
+  <h2>Published numbers, and the table you hand in</h2>
+  <p class="sub"><span class="pages">slides 33–40</span> · key points 7 to 8</p>
+  <div class="card">
+    <h3>What we cover</h3>
+    <ol>
+      <li>Why you cannot compare your number to the one printed in a paper, and the six things that
+        differ between them.</li>
+      <li>The one fix that settles it: run their baseline yourself, in your own harness.</li>
+      <li>What actually goes in your results table, and the seven-line checklist your final project is
+        marked against.</li>
+    </ol>
+    <p class="note">The example table we end on concludes "we did not find an improvement". That
+    conclusion gets a good mark. Say so in your own report when it is true.</p>
+    <div class="linkrow" data-slot="vid3"></div>
+  </div>
+  <div class="card">
+    <h3>Checkpoint 3 · about 15:45</h3>
+    <p>Three questions, including how many of the seven checklist lines your own project plan already
+    satisfies. Not graded, and I expect low numbers today.</p>
+    <div class="linkrow" data-slot="form3"></div>
+  </div>
+</div></section>
+
+<section id="called"><div class="wrap">
+  <p class="when">15:45 – 15:57 · BEING CALLED ON</p>
+  <h2>Ninety seconds, by seat number</h2>
+  <div class="card">
+    <p>Everybody answered every quiz question correctly on paper, so I will not ask for answers. I will
+    ask for reasoning. Be ready to talk through one of these:</p>
+    <ul>
+      <li>Why does saying "we report the best of five runs" not repair the comparison?</li>
+      <li>Why can an ablation table with one run per row not attribute the gain to any component?</li>
+      <li>Why is a t-test on two accuracy numbers not a test?</li>
+    </ul>
+    <p class="note">What I am listening for: that you name the mechanism, use a number from today
+    correctly, connect it to your own project, and say precisely what you are still unsure about. The
+    last one is worth as much as the first.</p>
+  </div>
+</div></section>
+
+<section id="due"><div class="wrap">
+  <p class="when">DUE</p>
+  <h2>Today and next week</h2>
+  <div class="card">
+    <ul>
+      <li><b>HW1 is due today.</b> Your report must state the matching criterion (exact or overlap) and
+        which split you used.</li>
+      <li><b>Project proposal:</b> write the results table you intend to produce, empty, before you run
+        anything. If you cannot fill in the caption, the experiment is not designed yet.</li>
+      <li><b>Week 8</b> is the midterm review. The EMI mid-course questionnaire also opens.</li>
+    </ul>
+  </div>
+</div></section>
+
+<section id="video"><div class="wrap">
+  <p class="when">AFTERWARDS</p>
+  <h2>Video and catch-up</h2>
+  <div class="card">
+    <h3>All five clips</h3>
+    <p>A narrated walkthrough of all 43 slides, cut into the same blocks as the class, about 33 minutes
+    in total. Use it if you missed class, or to go through the arithmetic again at your own pace. From
+    Week 9 these go up before class instead of after.</p>
+    <div class="linkrow" data-slot="vid0"></div>
+    <div class="linkrow" data-slot="vid1"></div>
+    <div class="linkrow" data-slot="vid2"></div>
+    <div class="linkrow" data-slot="vid3"></div>
+    <div class="linkrow" data-slot="vid4"></div>
+    <p class="note">After watching, there is a short form: five multiple-choice questions and two open
+    ones. The open ones are the ones I read.</p>
+    <div class="linkrow" data-slot="form0"></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  Tzong-Han Tsai · Department of Computer Science and Information Engineering, National Central University.<br>
+  This page carries course material only — no names, answers or marks.
+</div></footer>
+
+<script>
+/* =============================================================================
+   PASTE THE LINKS HERE. Everything else on the page is already finished.
+   An empty string shows "not open yet" instead of a button.
+   ============================================================================= */
+var LINKS = {
+  form1: "",   // Checkpoint 1   <-- paste the Google Form link between the quotes
+  form2: "",   // Checkpoint 2
+  form3: "",   // Checkpoint 3
+  form0: "",   // Post-video form
+  vid0:  "w07-opening.mp4",
+  vid1:  "w07-block1.mp4",
+  vid2:  "w07-block2.mp4",
+  vid3:  "w07-block3.mp4",
+  vid4:  "w07-close.mp4"
+};
+var LABEL = {
+  form1: "Open checkpoint 1",
+  form2: "Open checkpoint 2",
+  form3: "Open checkpoint 3",
+  form0: "Open the post-video form",
+  vid0:  "Opening \u00b7 2.6 min",
+  vid1:  "Block 1 \u00b7 11.3 min",
+  vid2:  "Block 2 \u00b7 10.6 min",
+  vid3:  "Block 3 \u00b7 6.4 min",
+  vid4:  "Close \u00b7 2.1 min"
+};
+(function(){
+  "use strict";
+  document.querySelectorAll("[data-slot]").forEach(function(box){
+    var k = box.getAttribute("data-slot");
+    var u = (LINKS[k] || "").trim();
+    box.textContent = "";
+    if (u) {
+      var a = document.createElement("a");
+      a.className = "btn" + (k.indexOf("vid") === 0 ? "" : " go");
+      a.href = u; a.target = "_blank"; a.rel = "noopener";
+      a.textContent = LABEL[k] || "Open";
+      box.appendChild(a);
+    } else {
+      var s = document.createElement("span");
+      s.className = "notyet";
+      s.textContent = (LABEL[k] || "Link") + " — not open yet";
+      box.appendChild(s);
+    }
+  });
+})();
+</script>
+</body>
+</html>
