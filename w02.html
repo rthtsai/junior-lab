@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>第 2 堂 第一支程式 — Junior Lab</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="./">← Junior Lab</a>
+    <span class="kicker">AI 專題・第 2 堂</span>
+    <h1>換你寫程式，讓電腦自己排序</h1>
+    <p>上週你們是檢索器。今天把「排序」寫成程式，再用分數比比看哪一種比較準。</p>
+    <a class="qrsmall" href="./w02.html"><img class="qrimg" alt="課程頁 QR" src="data:image/png;base64,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"><span>掃我</span></a>
+    <div class="three">
+      <span><b>檢索</b>　用程式排序，不再靠人眼</span>
+      <span><b>依據</b>　印出排名，看得出是哪一段被選中</span>
+      <span><b>評分</b>　Recall@2 交給程式算</span>
+    </div>
+  </div>
+</header>
+
+<nav><div class="wrap">
+  <a href="#open">開場</a>
+  <a href="#explore">第一段 探索任務</a>
+  <a href="#quiz">第二段 小測</a>
+  <a href="#apply">第三段 應用任務</a>
+  <a href="#report">抽人報告</a>
+  <a href="#homework">下週要交</a>
+  <a href="#close">收尾</a>
+</div></nav>
+
+<section id="open"><div class="wrap">
+  <div class="stage"><em>第 1 節　0–10 分</em><h2>上週到今天</h2></div>
+
+  <div class="qrbig">
+    <img class="qrimg" alt="課程頁 QR" src="data:image/png;base64,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">
+    <div>
+      <strong>先用手機掃這個</strong>
+      <p>今天整堂課都在這一頁：練習本、任務單、小測、評分標準。上課中要用的連結全部從這裡點。</p>
+      <code>rthtsai.github.io/junior-lab/w02.html</code>
+    </div>
+  </div>
+
+  <div class="brk"></div>
+  <ol class="steps">
+    <li><div><h3>上週</h3><p>你們用眼睛和 AI 排序段落，用 Recall@2 打分。排得準不準，是這一年要改的東西。</p></div></li>
+    <li><div><h3>今天</h3><p>兩個東西：一個<strong>字面比對</strong>的檢索器（自己寫），一個<strong>語意比對</strong>的檢索器（會用就好）。同樣的題目，看誰排得準。</p></div></li>
+    <li><div><h3>工具</h3><p>Python 寫在 Google Colab 裡。一格一格按 ▶ 執行，不用安裝任何東西。</p></div></li>
+  </ol>
+
+  <div class="brk"></div>
+
+  <ol class="steps">
+    <li><div><h3>現在就做：打開練習本</h3><p>第 2 格先按，下載語意模型要 1 到 3 分鐘，讓它在背景跑。跳出「要重新啟動工作階段」就按重新啟動，不用重按。</p></div></li>
+    <li><div><h3>每組一台電腦</h3><p>一人打字，一人看題目；每 10 分鐘換人。兩位學長姐會在教室走動，卡住先問同組。</p></div></li>
+  </ol>
+  <a class="cta" href="https://colab.research.google.com/github/rthtsai/junior-lab/blob/main/w02.ipynb" target="_blank" rel="noopener">開啟 Colab 練習本 →</a>
+  <p class="rule">看到 <strong>✏️</strong> 的格子要自己把 <code>____</code> 換成答案。沒填就按會出現紅色錯誤，這是正常的。</p>
+</div></section>
+
+<section id="explore"><div class="wrap">
+  <div class="stage"><em>第 1 節　10–40 分</em><h2>寫一個字面比對檢索器</h2></div>
+  <p class="lead">練習本「第 1 節」。四個步驟，順序不能跳。</p>
+
+  <ol class="steps">
+    <li><div><h3>步驟 1　把資料放進程式　約 3 分鐘</h3><p>題目放在 <code>question</code>，五段短文放在 <code>passages</code>。這是上週的咖啡題。按 ▶ 看它印出什麼；<strong>✏️ 1</strong> 用迴圈印出每一段有幾個字。</p></div></li>
+    <li><div><h3>步驟 2　寫「字面重疊」函式　約 10 分鐘</h3><p>題目裡的字，有幾個也出現在這一段？越多分數越高。<strong>✏️ 2</strong> 補上最後一行。這就是上週說的「字面重疊」。</p></div></li>
+    <li><div><h3>步驟 3　打分數、排名　約 5 分鐘</h3><p>對五段各算一次分數，由高到低排出來。先猜：你覺得 F 和 G 會排第幾？再按下去看。</p></div></li>
+    <li><div><h3>步驟 4　用程式算 Recall@2　約 7 分鐘</h3><p><strong>✏️ 3</strong> 補上最後一行。分子是前兩名命中的正解數，分母是正解總數（2）。</p></div></li>
+  </ol>
+
+  <div class="brk"></div>
+
+  <div class="q"><small>想一想，回表單</small><strong>排在前面、但其實答不到的是哪一段？它為什麼拿到高分？真正的正解排第幾？</strong></div>
+  <p class="rule">卡住的順序：先看格子裡的提示 → 問同組 → 舉手。時間到不管做完沒做完，都要把「想一想」寫進表單。</p>
+  <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSdWPohTTtdGYh1y-93951quvT54kmbizm6pOaonYW7BFSSxTA/viewform" target="_blank" rel="noopener">開啟探索任務表單 →</a>
+</div></section>
+
+<section id="review" hidden><div class="wrap">
+  <div class="stage"><em>第 1 節　40–45 分</em><h2>第一段點評</h2></div>
+  <ol class="steps">
+    <li><div><h3>字面比對的結果</h3><p>咖啡題的排名是 F &gt; I &gt; J &gt; G &gt; H，Recall@2 ＝ 0.5。I 因為出現「咖啡因」「影響」而拿到高分，但它沒有回答「為什麼下午喝的晚上還有影響」。G 才是答案的一半，卻只有兩個字跟題目重疊。</p></div></li>
+    <li><div><h3>為什麼會這樣</h3><p>程式只會數「字一不一樣」，不懂意思。同樣的字在題目和干擾段裡都出現，分數就會被拉高。</p></div></li>
+  </ol>
+  <p class="rule">追問一句：「如果你要改程式，讓 G 排上來，你會改哪裡？」</p>
+</div></section>
+
+<section id="quiz"><div class="wrap">
+  <div class="stage"><em>第 2 節　0–10 分</em><h2>小測，六題，馬上公布分數</h2></div>
+  <p class="lead">考的是剛剛寫的程式：<code>len</code>、迴圈、兩個字集合的交集、Recall@2 的算法，以及語意比對是在比什麼。作答時不收姓名，只選自己的號次。</p>
+  <p class="rule">六題做完按送出，分數立刻出來。只講錯最多的那一兩題，其他留著下次考。</p>
+  <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLScJvNyuSaKadI480gNPotgSWfrM_uL8rGMZX_LfVHGAuQq8JQ/viewform" target="_blank" rel="noopener">開啟小測 →</a>
+</div></section>
+
+<section id="apply"><div class="wrap">
+  <div class="stage"><em>第 2 節　10–30 分</em><h2>兩種檢索器，三個題組</h2></div>
+  <p class="lead">倒數 20 分鐘，時間到不管做完沒做完都要送出。回到練習本，從「第 2 節　語意比對檢索器」開始。</p>
+
+  <ol class="steps">
+    <li><div><h3>認識語意比對　約 4 分鐘</h3><p>模型把一句話變成一串數字（向量），意思越近的兩句話，數字越像。<strong>✏️ 4</strong> 用它排咖啡題，看 Recall@2 有沒有變好。</p></div></li>
+    <li><div><h3>跑三個題組　約 3 分鐘</h3><p>往下一格，一次跑完咖啡、雷雨、紙箱三個題組，兩種方法各排一次。不用改任何東西，按 ▶ 就好。</p></div></li>
+    <li><div><h3>記下分數　約 3 分鐘</h3><p>把六個 Recall@2（三個題組 × 兩種方法）抄進表單。</p></div></li>
+    <li><div><h3>找出騙人的那一段　約 10 分鐘</h3><p>挑一個題組：哪一段排在前面，卻答不到題目？它騙到字面比對、語意比對，還是兩個都騙到？用<strong>一句話</strong>說為什麼。</p></div></li>
+  </ol>
+
+  <p class="rule">分數是程式算的，結論是自己寫的。寫「它們都不準」零分，要指出是哪一段、為什麼。</p>
+  <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSfZzvpxPlNZJ0sV4v3SJEkcrsD0yJ3n2tLiht-PvqlognVJhg/viewform" target="_blank" rel="noopener">開啟應用任務表單 →</a>
+</div></section>
+
+<section id="report"><div class="wrap">
+  <div class="stage"><em>第 2 節　30–42 分</em><h2>抽人報告，90 秒</h2></div>
+  <ol class="four">
+    <li>我的六個 Recall@2</li>
+    <li>哪一段騙到了誰</li>
+    <li>我的一句話：為什麼它會騙到</li>
+    <li>如果要讓排名更準，我會試什麼</li>
+  </ol>
+  <p class="rule">抽到沒準備可以說「沒準備」，記 0 分、這次不算，馬上抽下一位。評審從還沒上台的人裡抽兩位。</p>
+  <div class="brk"></div>
+
+  <div class="tw"><table>
+    <thead><tr><th>項目</th><th>1 分</th><th>3 分</th><th>5 分</th></tr></thead>
+    <tbody>
+      <tr><td>有用到今天的概念</td><td>只說「語意比較厲害」</td><td>兩種方法的分數都報出來</td><td>分數＋指出騙人的段落＋說出騙到哪一種方法</td></tr>
+      <tr><td>內容正確</td><td>分數與練習本輸出不符</td><td>分數正確，騙人的段落指錯</td><td>分數與段落都正確，並說得出「相似不等於能回答」</td></tr>
+      <tr><td>有自己的想法</td><td>沒有提出改進</td><td>提出一個改進，沒說為什麼</td><td>提出改進，並預測 Recall@2 會怎麼變</td></tr>
+      <tr><td>表達清楚</td><td>唸稿、聽不懂</td><td>講得完但沒到重點</td><td>90 秒內讓大家聽懂你發現了什麼</td></tr>
+    </tbody>
+  </table></div>
+</div></section>
+
+<section id="homework"><div class="wrap">
+  <div class="stage"><em>第 2 節　42–45 分</em><h2>下週要交</h2></div>
+  <ol class="steps">
+    <li><div><h3>自己出一題</h3><p>練習本最後一格：自己寫一個題組。題目一個、六段短文、指定兩段正解，其中<strong>至少一段字面很像題目、但答不到</strong>。用兩種方法各跑一次，記下 Recall@2。</p></div></li>
+    <li><div><h3>改一次程式</h3><p>在 <code>STOP</code> 裡多加幾個字，或把題目改寫得更具體，重跑上面的三個題組，記下 Recall@2 有沒有變好。</p></div></li>
+    <li><div><h3>把練習本存到自己的雲端硬碟</h3><p>Colab 上方「檔案 → 在雲端硬碟中儲存副本」。不存的話，下次再開會是空白的。</p></div></li>
+  </ol>
+</div></section>
+
+<section id="close"><div class="wrap">
+  <div class="stage"><em>第 2 節　44–45 分</em><h2>回到今天的三個字</h2></div>
+  <ol class="steps">
+    <li><div><h3>檢索</h3><p>排序可以寫成程式。字面比對看字，語意比對看意思，兩種都可能被騙。</p></div></li>
+    <li><div><h3>依據</h3><p>程式印出排名，你才看得出是哪一段被選中。看不到被選的是誰，就沒辦法改。</p></div></li>
+    <li><div><h3>評分</h3><p>Recall@2 由程式算，每次結果都一樣，兩個人才能公平比較。</p></div></li>
+  </ol>
+  <p class="rule">相似不等於能回答。下週我們來想：怎麼讓程式分辨這兩件事。</p>
+</div></section>
+
+<footer><div class="wrap">
+  今天寫的兩個檢索器，就是國際共同任務裡最小的一個系統：把題目和文件各自變成可以比較的東西，排序，再用 Recall@k 打分。真正的競賽有幾萬段文件，只是把這個流程放大。
+</div></footer>
+
+<div id="tools">
+  <div id="panel" hidden>
+    <div>
+      <div id="clock">20:00</div>
+      <div class="row" style="margin-top:.6rem">
+        <button id="go" class="pri">開始</button>
+        <button id="reset">重設</button>
+      </div>
+      <div class="row" style="margin-top:.4rem">
+        <button data-min="20">20 分</button><button data-min="10">10 分</button><button data-min="5">5 分</button>
+      </div>
+      <div class="row" style="margin-top:.6rem">
+        <button id="pstart" class="pri" style="flex:1">投影模式</button>
+      </div>
+    </div>
+    <div style="border-top:1px solid var(--line);padding-top:.8rem">
+      <div class="row"><input id="code" type="password" inputmode="numeric" placeholder="解鎖點評" style="flex:1;min-width:0;padding:.45rem .6rem;border:1px solid var(--line);border-radius:6px;font:inherit">
+      <button id="unlock">解鎖</button></div>
+    </div>
+    <div style="border-top:1px solid var(--line);padding-top:.8rem">
+      <div id="draw">–</div>
+      <div id="drawn">尚未抽號</div>
+      <div class="row" style="margin-top:.5rem">
+        <button id="spin" class="pri">抽一個號次</button>
+        <button id="clear">重來</button>
+      </div>
+    </div>
+  </div>
+  <button class="toggle" id="tgl" aria-expanded="false">老師工具</button>
+</div>
+
+<div id="presbar">
+  <button id="pprev">‹</button>
+  <span id="presnum">1 / 1</span>
+  <button id="pnext" class="pri">下一頁 ›</button>
+  <button id="pexit">離開</button>
+</div>
+
+<script>
+(function(){
+  var panel=document.getElementById('panel'),tgl=document.getElementById('tgl');
+  tgl.addEventListener('click',function(){
+    var open=panel.hidden; panel.hidden=!open; tgl.setAttribute('aria-expanded',String(open));
+    tgl.textContent=open?'收起':'老師工具';
+  });
+
+  var total=20*60,left=total,timer=null,clock=document.getElementById('clock'),go=document.getElementById('go');
+  function show(){
+    var m=Math.floor(left/60),s=left%60;
+    clock.textContent=m+':'+(s<10?'0':'')+s;
+    clock.classList.toggle('low',left<=60);
+  }
+  function stop(){clearInterval(timer);timer=null;go.textContent='開始';}
+  go.addEventListener('click',function(){
+    if(timer){stop();return;}
+    if(left<=0)left=total;
+    go.textContent='暫停';
+    timer=setInterval(function(){left--;if(left<=0){left=0;show();stop();return;}show();},1000);
+  });
+  document.getElementById('reset').addEventListener('click',function(){stop();left=total;show();});
+  Array.prototype.forEach.call(document.querySelectorAll('[data-min]'),function(b){
+    b.addEventListener('click',function(){stop();total=parseInt(b.dataset.min,10)*60;left=total;show();});
+  });
+  show();
+
+
+  // ===== 投影模式 =====
+  var bar=document.getElementById('presbar'),num=document.getElementById('presnum');
+  var P={list:[],i:0,on:false};
+  function collect(){
+    P.list=[];
+    Array.prototype.forEach.call(document.querySelectorAll('body > section'),function(sec){
+      if(sec.hidden) return;
+      var wrap=sec.querySelector('.wrap'); if(!wrap) return;
+      var stage=wrap.querySelector('.stage');
+      var groups=[[]];
+      Array.prototype.forEach.call(wrap.children,function(k){
+        if(k.classList.contains('brk')){groups.push([]);return;}
+        if(k===stage) return;
+        groups[groups.length-1].push(k);
+      });
+      groups=groups.filter(function(g){return g.length;});
+      if(!groups.length) groups=[[]];
+      groups.forEach(function(g){P.list.push({sec:sec,stage:stage,keep:g});});
+    });
+  }
+  function showAll(sec){
+    var wrap=sec.querySelector('.wrap'); if(!wrap) return;
+    Array.prototype.forEach.call(wrap.children,function(k){
+      if(!k.classList.contains('brk')) k.style.display='';
+    });
+  }
+  function paintSlide(){
+    var cur=P.list[P.i];
+    P.list.forEach(function(it){
+      if(it.sec!==cur.sec){
+        it.sec.classList.remove('on'); showAll(it.sec);
+        Array.prototype.forEach.call(it.sec.querySelectorAll('video'),function(v){v.pause();});
+      }
+    });
+    cur.sec.classList.add('on'); cur.sec.scrollTop=0;
+    var wrap=cur.sec.querySelector('.wrap');
+    Array.prototype.forEach.call(wrap.children,function(k){
+      if(k.classList.contains('brk')) return;
+      if(k===cur.stage){k.style.display='';return;}
+      var keep=cur.keep.indexOf(k)>=0;
+      if(!keep){
+        Array.prototype.forEach.call(k.querySelectorAll('video'),function(v){v.pause();});
+      }
+      k.style.display=keep?'':'none';
+    });
+    num.textContent=(P.i+1)+' / '+P.list.length;
+  }
+  function presOn(){
+    collect(); if(!P.list.length) return;
+    P.on=true; P.i=0; document.body.classList.add('pres');
+    if(panel&&!panel.hidden){panel.hidden=true;tgl.setAttribute('aria-expanded','false');tgl.textContent='老師工具';}
+    paintSlide();
+    if(document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function(){});
+  }
+  function presOff(){
+    P.on=false; document.body.classList.remove('pres');
+    var cur=P.list[P.i]&&P.list[P.i].sec;
+    P.list.forEach(function(it){it.sec.classList.remove('on');showAll(it.sec);
+      Array.prototype.forEach.call(it.sec.querySelectorAll('video'),function(v){v.pause();});});
+    if(document.fullscreenElement&&document.exitFullscreen) document.exitFullscreen().catch(function(){});
+    if(cur) cur.scrollIntoView();
+  }
+  function step(d){
+    if(!P.on) return;
+    var n=P.i+d; if(n<0||n>=P.list.length) return;
+    P.i=n; paintSlide();
+  }
+  document.getElementById('pstart').addEventListener('click',presOn);
+  document.getElementById('pnext').addEventListener('click',function(){step(1);});
+  document.getElementById('pprev').addEventListener('click',function(){step(-1);});
+  document.getElementById('pexit').addEventListener('click',presOff);
+  document.addEventListener('keydown',function(e){
+    if(e.target&&/^(INPUT|TEXTAREA)$/.test(e.target.tagName)) return;
+    if(!P.on){ if(e.key==='p'||e.key==='P'){presOn();} return; }
+    if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key==='PageDown'){e.preventDefault();step(1);}
+    else if(e.key==='ArrowLeft'||e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();step(-1);}
+    else if(e.key==='Escape'){presOff();}
+  });
+  document.addEventListener('fullscreenchange',function(){
+    if(!document.fullscreenElement&&P.on) presOff();
+  });
+
+  var unlock=document.getElementById('unlock');
+  function tryUnlock(){
+    var v=document.getElementById('code').value.trim();
+    if(v!=='1120'){unlock.textContent='再試';setTimeout(function(){unlock.textContent='解鎖';},900);return;}
+    document.getElementById('review').hidden=false;
+    unlock.textContent='已解鎖';
+    if(P.on){var c=P.list[P.i];collect();for(var j=0;j<P.list.length;j++){if(P.list[j].sec===c.sec&&P.list[j].keep[0]===c.keep[0]){P.i=j;break;}}paintSlide();}
+    else document.getElementById('review').scrollIntoView({behavior:'smooth'});
+  }
+  unlock.addEventListener('click',tryUnlock);
+  document.getElementById('code').addEventListener('keydown',function(e){if(e.key==='Enter')tryUnlock();});
+
+  var pool=[1,2,3,4,5],used=[],dr=document.getElementById('draw'),dn=document.getElementById('drawn');
+  function paint(){dn.textContent=used.length?('已抽：'+used.join('、')+'（剩 '+(pool.length-used.length)+' 位）'):'尚未抽號';}
+  document.getElementById('spin').addEventListener('click',function(){
+    var rest=pool.filter(function(n){return used.indexOf(n)<0;});
+    if(!rest.length){dr.textContent='✓';dn.textContent='五位都抽過了';return;}
+    var n=rest[Math.floor(Math.random()*rest.length)];
+    used.push(n);dr.textContent=n;paint();
+  });
+  document.getElementById('clear').addEventListener('click',function(){used=[];dr.textContent='–';paint();});
+})();
+</script>
+
+</body>
+</html>
