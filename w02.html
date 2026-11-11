@@ -7,6 +7,24 @@
 <title>第 2 堂 第一支程式 — Junior Lab</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap">
 <link rel="stylesheet" href="style.css">
+<style>
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-top:1.3rem;align-items:stretch}
+.flow div{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:.9rem .8rem;text-align:center;min-width:0}
+.flow div+div::before{content:"→";position:absolute;left:-.62rem;top:50%;transform:translateY(-50%);color:var(--accent);font-weight:900;font-size:1.1rem;background:var(--bg);line-height:1}
+.flow b{display:block;color:var(--head);font-size:1.05rem}
+.flow span{display:block;margin-top:.25rem;color:var(--muted);font-size:.85rem;line-height:1.5}
+.flow code{font-family:var(--mono);font-size:.8rem}
+@media (max-width:560px){.flow{grid-template-columns:1fr 1fr}.flow div+div::before{display:none}}
+ol.steps li>div{min-width:0}
+pre.cell{max-width:100%;margin:.9rem 0 0;padding:.85rem 1rem;background:#0F1120;color:#ECEEF6;border:1px solid var(--line);border-radius:10px;font-family:var(--mono);font-size:.85rem;line-height:1.7;overflow-x:auto}
+pre.cell em{font-style:normal;color:#F08A7F;font-weight:700;background:rgba(240,138,127,.14);border-radius:4px;padding:0 .25rem}
+pre.cell i{font-style:normal;color:#8B95BF}
+.tag{display:inline-block;font-family:var(--mono);font-size:.75rem;font-weight:600;color:var(--accent-fg);background:var(--accent);border-radius:999px;padding:.05rem .55rem;margin-right:.4rem;vertical-align:.1em}
+.fill td:nth-child(n+2){text-align:center;color:var(--muted)}
+body.pres .flow b{font-size:1.4rem}
+body.pres .flow span{font-size:1.05rem}
+body.pres pre.cell{font-size:1.15rem}
+</style>
 </head>
 <body>
 <body>
@@ -48,20 +66,24 @@
   </div>
 
   <div class="brk"></div>
-  <ol class="steps">
-    <li><div><h3>上週</h3><p>你們用眼睛和 AI 排序段落，用 Recall@2 打分。排得準不準，是這一年要改的東西。</p></div></li>
-    <li><div><h3>今天</h3><p>兩個東西：一個<strong>字面比對</strong>的檢索器（自己寫），一個<strong>語意比對</strong>的檢索器（會用就好）。同樣的題目，看誰排得準。</p></div></li>
-    <li><div><h3>工具</h3><p>Python 寫在 Google Colab 裡。一格一格按 ▶ 執行，不用安裝任何東西。</p></div></li>
-  </ol>
+
+  <div class="q"><small>上週 → 今天</small><strong>上週你們用眼睛和 AI 排序，今天換成自己寫程式排序，再比比看哪一種比較準。</strong></div>
+  <div class="flow">
+    <div><b>題目＋段落</b><span><code>question</code><br><code>passages</code></span></div>
+    <div><b>打分數</b><span>每段一個分數<br>字面比對、語意比對</span></div>
+    <div><b>排名</b><span>分數高的在前<br>印出是哪一段</span></div>
+    <div><b>Recall@2</b><span>前兩名命中幾個正解<br>程式幫你算</span></div>
+  </div>
 
   <div class="brk"></div>
 
-  <ol class="steps">
-    <li><div><h3>現在就做：打開練習本</h3><p>第 2 格先按，下載語意模型要 1 到 3 分鐘，讓它在背景跑。跳出「要重新啟動工作階段」就按重新啟動，不用重按。</p></div></li>
-    <li><div><h3>每組一台電腦</h3><p>一人打字，一人看題目；每 10 分鐘換人。兩位學長姐會在教室走動，卡住先問同組。</p></div></li>
-  </ol>
+  <h3 class="rosh">現在就做：打開練習本</h3>
+  <p class="lead">Python 寫在 Google Colab 裡，一格一格按 ▶ 執行，不用安裝任何東西。每組一台電腦，一人打字、一人看題目，每 10 分鐘換人。</p>
+  <pre class="cell"><i># 第 2 格，先按。模型在背景下載 1 到 3 分鐘</i>
+!pip install -q sentence-transformers
+model = SentenceTransformer("BAAI/bge-m3")</pre>
+  <p class="rule">跳出「要重新啟動工作階段」就按重新啟動，不用重按。看到 <strong>✏️</strong> 的格子要自己把 <code>____</code> 換成答案；沒填就按會出現紅色錯誤，這是正常的。</p>
   <a class="cta" href="https://colab.research.google.com/github/rthtsai/junior-lab/blob/main/w02.ipynb" target="_blank" rel="noopener">開啟 Colab 練習本 →</a>
-  <p class="rule">看到 <strong>✏️</strong> 的格子要自己把 <code>____</code> 換成答案。沒填就按會出現紅色錯誤，這是正常的。</p>
 </div></section>
 
 <section id="explore"><div class="wrap">
@@ -69,10 +91,22 @@
   <p class="lead">練習本「第 1 節」。四個步驟，順序不能跳。</p>
 
   <ol class="steps">
-    <li><div><h3>步驟 1　把資料放進程式　約 3 分鐘</h3><p>題目放在 <code>question</code>，五段短文放在 <code>passages</code>。這是上週的咖啡題。按 ▶ 看它印出什麼；<strong>✏️ 1</strong> 用迴圈印出每一段有幾個字。</p></div></li>
-    <li><div><h3>步驟 2　寫「字面重疊」函式　約 10 分鐘</h3><p>題目裡的字，有幾個也出現在這一段？越多分數越高。<strong>✏️ 2</strong> 補上最後一行。這就是上週說的「字面重疊」。</p></div></li>
-    <li><div><h3>步驟 3　打分數、排名　約 5 分鐘</h3><p>對五段各算一次分數，由高到低排出來。先猜：你覺得 F 和 G 會排第幾？再按下去看。</p></div></li>
-    <li><div><h3>步驟 4　用程式算 Recall@2　約 7 分鐘</h3><p><strong>✏️ 3</strong> 補上最後一行。分子是前兩名命中的正解數，分母是正解總數（2）。</p></div></li>
+    <li><div><h3>把資料放進程式　約 3 分鐘</h3><p>題目放在 <code>question</code>，五段短文放在 <code>passages</code>，就是上週的咖啡題。</p>
+      <pre class="cell"><i># ✏️ 1　印出每一段有幾個字</i>
+for name, text in passages.items():
+    print(name, "共", len(<em>____</em>), "個字")</pre></div></li>
+    <li><div><h3>寫「字面重疊」函式　約 10 分鐘</h3><p>題目裡的字，有幾個也出現在這一段？越多分數越高，就是上週說的字面重疊。</p>
+      <pre class="cell">def overlap(question, passage):
+    q = set(question) - STOP
+    p = set(passage) - STOP
+    <i># ✏️ 2　兩邊都有的字有幾個？</i>
+    return len(<em>____</em>)</pre></div></li>
+    <li><div><h3>打分數、排名　約 5 分鐘</h3><p>對五段各算一次分數，由高到低排。先猜：你覺得 F 和 G 會排第幾？再按下去看。</p></div></li>
+    <li><div><h3>用程式算 Recall@2　約 7 分鐘</h3><p>分子是前兩名命中的正解數，分母是正解總數（2）。</p>
+      <pre class="cell">def recall_at_k(ranking, gold, k):
+    hits = len(set(ranking[:k]) &amp; set(gold))
+    <i># ✏️ 3</i>
+    return <em>____</em> / len(gold)</pre></div></li>
   </ol>
 
   <div class="brk"></div>
@@ -103,11 +137,22 @@
   <p class="lead">倒數 20 分鐘，時間到不管做完沒做完都要送出。回到練習本，從「第 2 節　語意比對檢索器」開始。</p>
 
   <ol class="steps">
-    <li><div><h3>認識語意比對　約 4 分鐘</h3><p>模型把一句話變成一串數字（向量），意思越近的兩句話，數字越像。<strong>✏️ 4</strong> 用它排咖啡題，看 Recall@2 有沒有變好。</p></div></li>
-    <li><div><h3>跑三個題組　約 3 分鐘</h3><p>往下一格，一次跑完咖啡、雷雨、紙箱三個題組，兩種方法各排一次。不用改任何東西，按 ▶ 就好。</p></div></li>
-    <li><div><h3>記下分數　約 3 分鐘</h3><p>把六個 Recall@2（三個題組 × 兩種方法）抄進表單。</p></div></li>
+    <li><div><h3>認識語意比對　約 4 分鐘</h3><p>模型把一句話變成一串數字（向量），意思越近的兩句話，數字越像。</p>
+      <pre class="cell"><i># ✏️ 4　用語意比對排咖啡題</i>
+sem_scores = semantic_scores(<em>____</em>, passages)</pre></div></li>
+    <li><div><h3>跑三個題組　約 3 分鐘</h3><p>往下一格，一次跑完咖啡、雷雨、紙箱，兩種方法各排一次。不用改任何東西，按 ▶ 就好。</p></div></li>
+    <li><div><h3>記下分數　約 3 分鐘</h3><p>把六個 Recall@2 抄進表單，就是下面這張表。</p></div></li>
     <li><div><h3>找出騙人的那一段　約 10 分鐘</h3><p>挑一個題組：哪一段排在前面，卻答不到題目？它騙到字面比對、語意比對，還是兩個都騙到？用<strong>一句話</strong>說為什麼。</p></div></li>
   </ol>
+
+  <div class="tw fill"><table>
+    <thead><tr><th>題組</th><th>字面比對 Recall@2</th><th>語意比對 Recall@2</th><th>騙人的段落</th></tr></thead>
+    <tbody>
+      <tr><td>咖啡</td><td>?</td><td>?</td><td>?</td></tr>
+      <tr><td>雷雨</td><td>?</td><td>?</td><td>?</td></tr>
+      <tr><td>紙箱</td><td>?</td><td>?</td><td>?</td></tr>
+    </tbody>
+  </table></div>
 
   <p class="rule">分數是程式算的，結論是自己寫的。寫「它們都不準」零分，要指出是哪一段、為什麼。</p>
   <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSfZzvpxPlNZJ0sV4v3SJEkcrsD0yJ3n2tLiht-PvqlognVJhg/viewform" target="_blank" rel="noopener">開啟應用任務表單 →</a>
