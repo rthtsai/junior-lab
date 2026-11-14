@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Week 11 — Retrieval-Augmented Generation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@600;700&display=swap">
+<style>
+/* ===========================================================================
+   EDIT ME — paste the Google Form links here once the TAs send them.
+   Leave a value as "" and that button simply shows as "not open yet".
+   =========================================================================== */
+:root{
+  --bg:#FBFBFD; --surface:#FFFFFF; --ink:#1C2033; --muted:#6A7186; --line:#D8DBEA;
+  --deep:#232B63; --amber:#B8801F; --amber-soft:#FDF3E2; --teal:#2E8B7F;
+  --shadow:0 1px 2px rgba(28,32,51,.05), 0 6px 20px rgba(28,32,51,.05);
+  --display:"Source Serif 4",Cambria,Georgia,serif;
+  --body:"Source Sans 3",Calibri,system-ui,-apple-system,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Consolas,monospace;
+  color-scheme:light;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#11141F; --surface:#1A1F30; --ink:#ECEEF6; --muted:#9AA2BC; --line:#2C3348;
+  --deep:#A6B1E8; --amber:#E8A33D; --amber-soft:#2A2314; --teal:#5FBFAF;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 6px 20px rgba(0,0,0,.3); color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#11141F; --surface:#1A1F30; --ink:#ECEEF6; --muted:#9AA2BC; --line:#2C3348;
+  --deep:#A6B1E8; --amber:#E8A33D; --amber-soft:#2A2314; --teal:#5FBFAF;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 6px 20px rgba(0,0,0,.3); color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+[hidden]{display:none!important}
+.wrap{max-width:780px;margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+.topbar{border-bottom:1px solid var(--line);background:var(--surface)}
+.topbar .wrap{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding-block:11px}
+.topbar b{font-family:var(--display);font-size:16px;color:var(--deep)}
+.topbar span{font-size:13px;color:var(--muted)}
+
+header.hero{background:var(--surface);border-bottom:1px solid var(--line)}
+header.hero .wrap{padding-block:36px 30px}
+.kicker{font-size:12.5px;font-weight:700;letter-spacing:.14em;color:var(--amber);
+  text-transform:uppercase;margin:0 0 10px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(29px,5.6vw,44px);line-height:1.16;
+  margin:0 0 16px;text-wrap:balance;color:var(--deep)}
+.lede{font-size:18.5px;color:var(--muted);margin:0 0 22px;max-width:58ch}
+.bigidea{background:var(--deep);border-radius:14px;padding:20px 22px;margin:0 0 20px}
+.bigidea p{margin:0;font-family:var(--display);font-size:clamp(18px,3vw,24px);font-weight:700;
+  line-height:1.35;color:#FFFFFF}
+:root[data-theme="dark"] .bigidea p{color:#0E1120}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bigidea p{color:#0E1120}}
+.three{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:13px}
+.three div{border:2px solid var(--line);border-radius:12px;padding:13px 15px;background:var(--bg);min-width:0}
+.three b{display:block;font-size:12.5px;letter-spacing:.09em;margin-bottom:4px}
+.three p{margin:0;font-size:14.5px;color:var(--muted)}
+.c1{border-color:var(--deep)!important}.c1 b{color:var(--deep)}
+.c2{border-color:var(--amber)!important}.c2 b{color:var(--amber)}
+.c3{border-color:var(--teal)!important}.c3 b{color:var(--teal)}
+
+nav.anchors{border-bottom:1px solid var(--line);background:var(--surface)}
+nav.anchors .wrap{display:flex;flex-wrap:wrap;gap:8px;padding-block:13px}
+nav.anchors a{font-size:13.5px;text-decoration:none;color:var(--deep);border:1px solid var(--line);
+  border-radius:999px;padding:5px 12px;background:var(--bg)}
+nav.anchors a:hover{border-color:var(--deep)}
+
+section .wrap{padding-block:34px}
+section{scroll-margin-top:12px}
+.when{font-family:var(--mono);font-size:12.5px;color:var(--amber);font-weight:700;
+  letter-spacing:.05em;margin:0 0 5px}
+h2{font-family:var(--display);font-size:clamp(22px,3.6vw,29px);margin:0 0 8px;color:var(--deep);
+  text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 16px;font-size:15.5px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;
+  box-shadow:var(--shadow);padding:19px 21px;margin:0 0 14px}
+.card h3{margin:0 0 9px;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--deep)}
+.card p:last-child{margin-bottom:0}
+ol,ul{margin:0;padding-left:21px}
+li{margin:0 0 8px}
+.pages{display:inline-block;font-family:var(--mono);font-size:13px;background:var(--amber-soft);
+  color:var(--amber);border-radius:6px;padding:2px 8px;font-weight:700}
+.note{border-left:3px solid var(--amber);padding:4px 0 4px 13px;color:var(--muted);
+  font-size:15.5px;margin:14px 0 0}
+table{width:100%;border-collapse:collapse;margin:12px 0 0;font-size:15px}
+th,td{text-align:left;padding:8px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+td.n{font-family:var(--mono);white-space:nowrap;font-variant-numeric:tabular-nums}
+.linkrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:15px}
+a.btn{font-family:var(--body);font-size:15px;font-weight:600;border-radius:10px;
+  border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:11px 16px;
+  text-decoration:none;display:inline-block}
+a.btn.go{background:var(--deep);border-color:var(--deep);color:var(--surface)}
+a.btn:hover{border-color:var(--amber)}
+a.btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+span.notyet{font-size:15px;color:var(--muted);border:1px dashed var(--line);
+  border-radius:10px;padding:11px 16px;display:inline-block}
+footer{border-top:1px solid var(--line);background:var(--surface)}
+footer .wrap{padding-block:26px 40px;color:var(--muted);font-size:14.5px}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <b>NCU CSIE · Natural Language Processing</b>
+  <span>Week 11 · Tuesday 17 November 2026 · 13:00–15:50</span>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <p class="kicker">Retrieval-Augmented Generation</p>
+  <h1>How do you make a language model answer from documents it never saw?</h1>
+  <p class="lede">Everything for today is on this page: the video parts, the checkpoint forms you answer in class,
+  and what comes after. Use the same address during class and afterwards.</p>
+  <div class="bigidea"><p>RAG does not make a model smarter. It changes what the model is allowed to read before it answers.</p></div>
+  <div class="three">
+    <div class="c1"><b>RETRIEVE</b><p>Find the passages that can answer the question.</p></div>
+    <div class="c2"><b>GENERATE</b><p>Answer from those passages only, and cite them.</p></div>
+    <div class="c3"><b>EVALUATE</b><p>Measure retrieval and generation separately, so you know what failed.</p></div>
+  </div>
+</div></header>
+
+<nav class="anchors"><div class="wrap">
+  <a href="#p1">Part 1</a>
+  <a href="#p2">Part 2</a>
+  <a href="#p3">Part 3</a>
+  <a href="#p4">Part 4</a>
+  <a href="#p5">Part 5</a>
+  <a href="#p6">Part 6</a>
+  <a href="#p7">Part 7</a>
+  <a href="#lab">Mini Lab</a>
+</div></nav>
+
+<section id="p1"><div class="wrap">
+  <p class="when">13:05 – 13:20 · PART 1</p>
+  <h2>Why RAG, and the pipeline</h2>
+  <p class="sub">Video 11.8 min · then checkpoint 1</p>
+  <div class="card">
+    <h3>What we cover</h3>
+    <div class="linkrow" data-slot="vid1"></div>
+    <ol>
+      <li>Why a plain model fails on documents it was never trained on.</li>
+      <li>The RAG pipeline from question to cited answer, and what each stage is for.</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>Checkpoint 1 · Pipeline and chunking</h3>
+    <p>Three questions, three minutes, on your phone. Your result appears straight away.</p>
+    <div class="linkrow" data-slot="cp1"></div>
+  </div>
+</div></section>
+
+<section id="p2"><div class="wrap">
+  <p class="when">13:20 – 13:51 · PART 2</p>
+  <h2>Chunking, embeddings, hybrid search, reranking, query rewriting</h2>
+  <p class="sub">Video 27.2 min · the video stops at a pause-and-try slide</p>
+  <div class="card">
+    <h3>What we cover</h3>
+    <div class="linkrow" data-slot="vid2"></div>
+    <ol>
+      <li>How to split documents into chunks, and what chunk size and overlap change.</li>
+      <li>Embeddings and cosine similarity.</li>
+      <li>BM25 and hybrid search, with reciprocal rank fusion.</li>
+      <li>Reranking and query rewriting.</li>
+    </ol>
+  </div>
+</div></section>
+
+<section id="d1"><div class="wrap">
+  <div class="card">
+    <h3>Pause and try</h3>
+    <p>The video stops by itself. Work in pairs for three minutes on the question on the slide.</p>
+  </div>
+</div></section>
+
+<section id="p3"><div class="wrap">
+  <p class="when">13:51 – 13:56 · PART 3</p>
+  <h2>Short bridge</h2>
+  <p class="sub">Video 1.4 min · then checkpoint 2</p>
+  <div class="card">
+    <h3>What we cover</h3>
+    <div class="linkrow" data-slot="vid3"></div>
+  </div>
+  <div class="card">
+    <h3>Checkpoint 2 · Retrieval</h3>
+    <p>Three questions, three minutes.</p>
+    <div class="linkrow" data-slot="cp2"></div>
+  </div>
+</div></section>
+
+<section id="p4"><div class="wrap">
+  <p class="when">14:06 – 14:18 · PART 4 (after the break)</p>
+  <h2>Evaluating retrieval and generation</h2>
+  <p class="sub">Video 9.0 min · the video stops at a pause-and-try slide</p>
+  <div class="card">
+    <h3>What we cover</h3>
+    <div class="linkrow" data-slot="vid4"></div>
+    <ol>
+      <li>Recall at k and MRR for retrieval.</li>
+      <li>Faithfulness, citation precision and abstention for generation.</li>
+    </ol>
+  </div>
+</div></section>
+
+<section id="p5"><div class="wrap">
+  <p class="when">14:18 – 14:30 · PART 5</p>
+  <h2>Failure points, safety and cost</h2>
+  <p class="sub">Video 8.3 min · then checkpoint 3</p>
+  <div class="card">
+    <h3>What we cover</h3>
+    <div class="linkrow" data-slot="vid5"></div>
+    <ol>
+      <li>Where RAG systems fail: retrieval, context, generation.</li>
+      <li>Safety and permissions, and what a RAG prompt costs in tokens.</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>Checkpoint 3 · Evaluation and failure</h3>
+    <p>Three questions, three minutes.</p>
+    <div class="linkrow" data-slot="cp3"></div>
+  </div>
+</div></section>
+
+<section id="p6"><div class="wrap">
+  <p class="when">14:30 – 14:55 · PART 6</p>
+  <h2>Agentic RAG and long context</h2>
+  <p class="sub">Video 21.3 min · then checkpoint 4</p>
+  <div class="card">
+    <h3>What we cover</h3>
+    <div class="linkrow" data-slot="vid6"></div>
+    <ol>
+      <li>Agentic RAG: a model that decides how to search, and what it costs in steps and tokens.</li>
+      <li>When long context is enough and when it is not.</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>Checkpoint 4 · Agentic RAG</h3>
+    <p>Three questions, three minutes.</p>
+    <div class="linkrow" data-slot="cp4"></div>
+  </div>
+</div></section>
+
+<section id="p7"><div class="wrap">
+  <p class="when">14:55 – 15:03 · PART 7 AND SURVEY</p>
+  <h2>Close</h2>
+  <p class="sub">Video 3.0 min · then the after-video form</p>
+  <div class="card">
+    <h3>What we cover</h3>
+    <div class="linkrow" data-slot="vid7"></div>
+    <ol>
+      <li>The one-page summary of the session.</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>After the video</h3>
+    <p>A short form: multiple-choice questions and two open ones. The open ones are the ones I read.</p>
+    <div class="linkrow" data-slot="post"></div>
+  </div>
+</div></section>
+
+<section id="lab"><div class="wrap">
+  <p class="when">15:03 – 15:48 · MINI LAB</p>
+  <h2>RAG by hand</h2>
+  <div class="card">
+    <p>Work in your group of three or four. Questions 1 to 6 are done in class. Question 7 is three written
+    sentences, handed in at the end. Use a calculator or Python, and show your working.</p>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  Tzong-Han Tsai · Department of Computer Science and Information Engineering, National Central University.<br>
+  This page carries course material only — no names, answers or marks.
+</div></footer>
+
+<script>
+var LINKS = {
+  cp1: "https://docs.google.com/forms/d/e/1FAIpQLScunCvR09cMsypxvgepQIuV7kB90BtbVP4kf9ASFnIYEzq1OQ/viewform",
+  cp2: "https://docs.google.com/forms/d/e/1FAIpQLSdi_8Trt9uMg83JpgMeNQUr0vofKGPNmZqHeqvL91pIk-yeug/viewform",
+  cp3: "https://docs.google.com/forms/d/e/1FAIpQLScs026HuycISbwPh6b4Vk7xomgoxtFSPoRt5zRsCS-USVhvVQ/viewform",
+  cp4: "https://docs.google.com/forms/d/e/1FAIpQLSfs12osKPSgi6_fuW7SxXKHyD57rKDg8DCxUUcSEam_SX1HSQ/viewform",
+  post: "https://docs.google.com/forms/d/e/1FAIpQLSeEJqzXEGlED4EjeCfx8EMc_PIaiMwQdhMxKM-QpvB2wC5KcQ/viewform",
+  vid1: "w11-part1.mp4",
+  vid2: "w11-part2.mp4",
+  vid3: "w11-part3.mp4",
+  vid4: "w11-part4.mp4",
+  vid5: "w11-part5.mp4",
+  vid6: "w11-part6.mp4",
+  vid7: "w11-part7.mp4"
+};
+var LABEL = {
+  cp1: "Open checkpoint 1", cp2: "Open checkpoint 2", cp3: "Open checkpoint 3", cp4: "Open checkpoint 4",
+  post: "Open the after-video form",
+  vid1: "Part 1 \u00b7 11.8 min", vid2: "Part 2 \u00b7 27.2 min", vid3: "Part 3 \u00b7 1.4 min",
+  vid4: "Part 4 \u00b7 9.0 min", vid5: "Part 5 \u00b7 8.3 min", vid6: "Part 6 \u00b7 21.3 min", vid7: "Part 7 \u00b7 3.0 min"
+};
+(function(){
+  "use strict";
+  document.querySelectorAll("[data-slot]").forEach(function(box){
+    var k = box.getAttribute("data-slot");
+    var u = (LINKS[k] || "").trim();
+    box.textContent = "";
+    if (u) {
+      var a = document.createElement("a");
+      a.className = "btn" + (k.indexOf("vid") === 0 ? "" : " go");
+      a.href = u; a.target = "_blank"; a.rel = "noopener";
+      a.textContent = LABEL[k] || "Open";
+      box.appendChild(a);
+    } else {
+      var s = document.createElement("span");
+      s.className = "notyet";
+      s.textContent = (LABEL[k] || "Link") + " — not open yet";
+      box.appendChild(s);
+    }
+  });
+})();
+</script>
+</body>
+</html>
