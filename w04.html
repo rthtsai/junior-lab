@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>第 4 堂 答案要有依據 — Junior Lab</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+<style>
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-top:1.3rem;align-items:stretch}
+.flow div{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:.9rem .8rem;text-align:center;min-width:0}
+.flow div+div::before{content:"→";position:absolute;left:-.62rem;top:50%;transform:translateY(-50%);color:var(--accent);font-weight:900;font-size:1.1rem;background:var(--bg);line-height:1}
+.flow b{display:block;color:var(--head);font-size:1.05rem}
+.flow span{display:block;margin-top:.25rem;color:var(--muted);font-size:.85rem;line-height:1.5}
+.flow code{font-family:var(--mono);font-size:.8rem}
+@media (max-width:560px){.flow{grid-template-columns:1fr 1fr}.flow div+div::before{display:none}}
+ol.steps li>div{min-width:0}
+pre.cell{max-width:100%;margin:.9rem 0 0;padding:.85rem 1rem;background:#0F1120;color:#ECEEF6;border:1px solid var(--line);border-radius:10px;font-family:var(--mono);font-size:.85rem;line-height:1.7;overflow-x:auto}
+pre.cell em{font-style:normal;color:#F08A7F;font-weight:700;background:rgba(240,138,127,.14);border-radius:4px;padding:0 .25rem}
+pre.cell i{font-style:normal;color:#8B95BF}
+.tag{display:inline-block;font-family:var(--mono);font-size:.75rem;font-weight:600;color:var(--accent-fg);background:var(--accent);border-radius:999px;padding:.05rem .55rem;margin-right:.4rem;vertical-align:.1em}
+.fill td:nth-child(n+2){text-align:center;color:var(--muted)}
+body.pres .flow b{font-size:1.4rem}
+body.pres .flow span{font-size:1.05rem}
+body.pres pre.cell{font-size:1.15rem}
+.tw table{min-width:36rem}
+p,li>div,.rule,.lead{text-wrap:pretty}
+td,th,h2,h3,.flow span,.q strong{text-wrap:balance}
+.flow.f4 div:last-child{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="./">← Junior Lab</a>
+    <span class="kicker">AI 專題・第 4 堂</span>
+    <h1>答案要有依據</h1>
+    <p>上週程式會指出依據句。今天答案先寫好，程式要查證：每一句，真的照依據寫嗎？</p>
+    <a class="qrsmall" href="./w04.html"><img class="qrimg" alt="課程頁 QR" src="data:image/png;base64,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"><span>掃我</span></a>
+    <div class="three">
+      <span><b>檢索</b>　排出段落，只是第一步</span>
+      <span><b>依據</b>　答案每一句都要有出處</span>
+      <span><b>評分</b>　有依據比例、判斷正確率</span>
+    </div>
+  </div>
+</header>
+
+<nav><div class="wrap">
+  <a href="#open">開場</a>
+  <a href="#explore">第一段 探索任務</a>
+  <a href="#quiz">小測</a>
+  <a href="#apply">第二段 應用任務</a>
+  <a href="#report">抽人報告</a>
+  <a href="#homework">下週要交</a>
+  <a href="#close">收尾</a>
+</div></nav>
+
+<section id="open"><div class="wrap">
+  <div class="stage"><em>第 1 節　0–5 分</em><h2>上週到今天</h2></div>
+
+  <div class="qrbig">
+    <img class="qrimg" alt="課程頁 QR" src="data:image/png;base64,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">
+    <div>
+      <strong>先用手機掃這個</strong>
+      <p>今天整堂課都在這一頁：練習本、任務單、小測、評分標準。要用的連結，都從這裡點開。</p>
+      <code>rthtsai.github.io/junior-lab/w04.html</code>
+    </div>
+  </div>
+
+  <div class="brk"></div>
+  <div class="q"><small>上週 → 今天</small><strong>上週程式指出依據句，答案是人寫的。今天答案已經寫好，換程式來查：每一句有沒有照依據寫。</strong></div>
+  <div class="flow f4">
+    <div><b>檢索</b><span>排出段落<br>第 2 堂</span></div>
+    <div><b>判斷</b><span>能不能回答<br>第 3 堂</span></div>
+    <div><b>回答</b><span>寫出答案<br>已經寫好</span></div>
+    <div><b>查證</b><span>每句有沒有依據<br>今天由你寫</span></div>
+  </div>
+
+  <div class="brk"></div>
+  <ol class="steps">
+    <li><div><h3>現在就做：打開練習本</h3><p>最上面那一格先按，下載語意模型要 1 到 3 分鐘，讓它在背景跑。跳出「要重新啟動工作階段」就按重新啟動，不用重按。按完等到出現「語意模型準備好了」。</p></div></li>
+    <li><div><h3>每組一台電腦</h3><p>一人打字，一人看題目；每 8 分鐘換人。</p></div></li>
+  </ol>
+  <a class="cta" href="https://colab.research.google.com/github/rthtsai/junior-lab/blob/main/w04.ipynb" target="_blank" rel="noopener">開啟 Colab 練習本 →</a>
+  <p class="rule">看到 <strong>✏️</strong> 的格子要自己把 <code>____</code> 換成答案。沒填就按會出現紅色錯誤，這是正常的。</p>
+</div></section>
+
+<section id="explore"><div class="wrap">
+  <div class="stage"><em>第 1 節　5–30 分</em><h2>你當一次「查證器」</h2></div>
+  <figure style="margin:0"><video controls preload="metadata" src="w04-explore.mp4"></video>
+    <figcaption>任務說明</figcaption></figure>
+  <div class="brk"></div>
+  <p class="lead">練習本第 1 到 4 節。題目：為什麼打雷時，先看到閃電，才聽到雷聲？六句答案已經寫好，要由你的程式逐句查證。</p>
+
+  <ol class="steps">
+    <li><div><h3>先用眼睛判斷　約 3 分鐘</h3><p>還不要跑程式。看題組一的六句答案，哪幾句真的有依據？把編號記下來，填表單第 1 題。</p></div></li>
+    <li><div><h3>三道檢查，三個填空　約 10 分鐘</h3><p>每一句答案，先找出最像的那句依據，再過三道檢查：<strong>覆蓋</strong>（字有沒有對上）、<strong>數字與否定</strong>（數字、「不」有沒有跑掉）、<strong>語意</strong>（整句像不像）。三道全過，才算有依據。</p>
+      <pre class="cell"><i># ✏️ 1　覆蓋率的分母</i>
+return len(a &amp; b) / len(<em>____</em>)
+
+<i># ✏️ 2　答案句的數字，都要在依據段找得到</i>
+num_ok = all(n in passage_nums for n in <em>____</em>)
+
+<i># ✏️ 3　只看開著的檢查，全部通過才算</i>
+supported = all(checks[k] for k in <em>____</em>)
+
+<i># ✏️ 4　有依據比例的分母</i>
+return sum(r["supported"] for r in results) / <em>____</em></pre>
+      <p>填完按執行，看每一句有沒有依據，以及是被哪一道檢查擋下的。</p></div></li>
+    <li><div><h3>實驗：拿掉一道檢查　約 7 分鐘</h3><p>改練習本的 <code>ON</code> 清單，每次拿掉一道再跑。記下多放進哪幾句、有依據比例變多少。拿掉「數字否定」一次，拿掉「語意」一次，改完要改回來。</p>
+      <pre class="cell">ON = ["覆蓋", "數字否定", "語意"]   <i># 刪掉其中一個，再重跑</i></pre></div></li>
+    <li><div><h3>調門檻，再試照抄　約 3 分鐘</h3><p>把 <code>TH</code> 改成 0.70、0.95，各跑一次看變化，再改回 0.87。最後跑「照抄示範」：把整段依據原文當答案交上去，比例會是多少？</p></div></li>
+  </ol>
+
+  <div class="brk"></div>
+
+  <div class="q"><small>想一想，回表單</small><strong>①哪一句相似度很高，卻沒有依據？②整段依據原文當答案，比例是多少？這算好答案嗎？</strong></div>
+  <p class="rule">卡住的順序：先看格子裡的提示 → 問同組 → 舉手。時間到不管做完沒做完，都要把結果和「想一想」寫進表單。</p>
+  <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSe-NdLYXmnBW4L7Fw6LfTYHGcj2vn3rrGUtLAw-JRKBWo8bgg/viewform" target="_blank" rel="noopener">開啟探索任務表單 →</a>
+</div></section>
+
+<section id="review" hidden><div class="wrap">
+  <div class="stage"><em>第 1 節　30–37 分</em><h2>第一段點評</h2></div>
+  <figure style="margin:0"><video controls preload="metadata" src="w04-review.mp4"></video>
+    <figcaption>點評</figcaption></figure>
+  <div class="brk"></div>
+  <p class="rule">播完追一句：「你憑什麼說第 3 句沒依據？」</p>
+  <div class="brk"></div>
+  <ol class="steps">
+    <li><div><h3>相似，不等於有依據</h3><p>相似度只看兩句話放在一起像不像，不看對不對。</p></div></li>
+    <li><div><h3>三道檢查，各擋一種</h3><p>每一道檢查擋的錯不一樣。你在實驗裡拿掉哪一道，多放進來的就是哪一種。</p></div></li>
+  </ol>
+</div></section>
+
+<section id="quiz"><div class="wrap">
+  <div class="stage"><em>第 1 節　37–45 分</em><h2>小測，五題，馬上公布分數</h2></div>
+  <p class="lead">考的是剛剛寫的程式與觀念：相似度、三道檢查各自負責什麼、有依據比例怎麼算、照抄整段依據的結果。作答不收姓名，只選自己的號次。</p>
+  <p class="rule">五題做完按送出，分數立刻出來。只講錯最多的那一兩題。</p>
+  <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSe_lnL9kz_WQPaQUHYt_vZuFHJXxHYBnFWyNNLfolAxx0XSzA/viewform" target="_blank" rel="noopener">開啟小測 →</a>
+</div></section>
+
+<section id="apply"><div class="wrap">
+  <div class="stage"><em>第 2 節　0–10 分</em><h2>三個題組，算兩個數字</h2></div>
+  <figure style="margin:0"><video controls preload="metadata" src="w04-apply.mp4"></video>
+    <figcaption>任務說明</figcaption></figure>
+  <div class="brk"></div>
+  <p class="lead">只有 10 分鐘，時間到不管做完沒做完都要送出。回到練習本，往下到「解鎖標準答案」和「應用任務」。</p>
+
+  <ol class="steps">
+    <li><div><h3>解鎖標準答案　約 1 分鐘</h3><p>用老師給的解鎖碼，填進練習本「解鎖標準答案」那一格的引號，按執行。</p></div></li>
+    <li><div><h3>按執行，看三個題組　約 3 分鐘</h3><p>打雷、蘋果變褐色、吃糖蛀牙，一次跑完。每一句會印出有／沒依據，✔ 判對，✘ 判錯。最後印出每個題組的<strong>判斷正確率</strong>和<strong>有依據比例</strong>，把六個數字填進表單。</p></div></li>
+    <li><div><h3>找判錯的那一句　約 4 分鐘</h3><p>看哪一句被程式判錯，貼進表單，說三道檢查為什麼都沒擋下它。</p></div></li>
+    <li><div><h3>把 <code>TH</code> 改成 0.93　約 2 分鐘</h3><p>用練習本最後那一格，看三題組合計的判斷正確率，多出哪些錯。有沒有任何門檻能全對？</p></div></li>
+  </ol>
+
+  <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSfzuTUYtnmOvwTzTZ0nQIGxXF8xqtSrsGDtzMRtdyB6RKOFXA/viewform" target="_blank" rel="noopener">開啟應用任務表單 →</a>
+</div></section>
+
+<section id="report"><div class="wrap">
+  <div class="stage"><em>第 2 節　10–16 分</em><h2>抽人報告，90 秒</h2></div>
+  <figure style="margin:0"><video controls preload="metadata" src="w04-report.mp4"></video>
+    <figcaption>報告規則與評分標準</figcaption></figure>
+  <div class="brk"></div>
+  <ol class="four">
+    <li>我的有依據比例與判斷正確率</li>
+    <li>判錯的那一句，為什麼三道檢查都沒擋下它</li>
+    <li>拿掉或調整一道檢查之後，結果怎麼變</li>
+    <li>我要再改什麼，並預測結果會怎麼變</li>
+  </ol>
+  <p class="rule">抽到沒準備可以說「沒準備」，記 0 分、這次不算，馬上抽下一位。評審從還沒上台的人裡抽兩位，要給一句具體的回饋。</p>
+  <div class="brk"></div>
+
+  <div class="tw"><table>
+    <thead><tr><th>項目</th><th>1 分</th><th>3 分</th><th>5 分</th></tr></thead>
+    <tbody>
+      <tr><td>有用到今天的概念</td><td>只說「程式跑出來的」</td><td>報出兩個數字</td><td>兩個數字，加上判錯的那一句，並說出哪一道檢查擋了或沒擋</td></tr>
+      <tr><td>內容正確</td><td>數字和練習本對不上</td><td>數字對，判錯的句子指錯</td><td>數字和句子都對，並說得出相似不等於有依據</td></tr>
+      <tr><td>有自己的想法</td><td>沒有想法</td><td>提出加一道檢查，沒說原因</td><td>提出要加的檢查，並預測兩個數字怎麼變</td></tr>
+      <tr><td>表達清楚</td><td>唸稿、聽不懂</td><td>講得完，但沒說到重點</td><td>90 秒內，讓大家聽懂你的發現</td></tr>
+    </tbody>
+  </table></div>
+</div></section>
+
+<section id="homework"><div class="wrap">
+  <div class="stage"><em>第 2 節　16–18 分</em><h2>下週要交</h2></div>
+  <figure style="margin:0"><video controls preload="metadata" src="w04-homework.mp4"></video>
+    <figcaption>收尾與作業</figcaption></figure>
+  <div class="brk"></div>
+  <ol class="steps">
+    <li><div><h3>寫三句陷阱，再擋下來</h3><p>在練習本最下面，自己寫三句能騙過查證程式的答案，用題組一的依據，或自己出題都可以。跑一次，記下有依據比例。接著改規則，把它們擋下來：改 <code>extra_check</code>、<code>ON</code>、<code>COV</code>、<code>TH</code> 都行。再跑一次，記下新的有依據比例。</p></div></li>
+    <li><div><h3>查一份「AI 寫的答案」</h3><p>練習本裡有一份 AI 寫的答案。用你的程式查，找出幻覺那一句，再用一句話說明它為什麼被擋，或為什麼沒被擋。</p></div></li>
+    <li><div><h3>把練習本存到自己的雲端硬碟</h3><p>Colab 上方「檔案 → 在雲端硬碟中儲存副本」。不存的話，下次再開會是空白的。</p></div></li>
+  </ol>
+  <p class="rule">表單最後一題 <strong>AU（AI Use）</strong>必填：有沒有用 AI、用在哪裡、問了什麼。沒用就寫「未使用」，空白不收。</p>
+  <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSeVeoxO4JWiTGkGd2tTRJveTYO667bAghChBv7T8GC2AS_yQw/viewform" target="_blank" rel="noopener">開啟作業表單 →</a>
+</div></section>
+
+<section id="close"><div class="wrap">
+  <div class="stage"><em>第 2 節　18–20 分</em><h2>回到今天的三個字</h2></div>
+  <ol class="steps">
+    <li><div><h3>檢索</h3><p>先把相關的段落排出來，所有問答都從這一步開始。</p></div></li>
+    <li><div><h3>依據</h3><p>答案每一句都要有出處。相似度高，不代表有依據。</p></div></li>
+    <li><div><h3>評分</h3><p>有依據比例、判斷正確率，都由程式算，兩個人才能公平比較。</p></div></li>
+  </ol>
+  <p class="rule">下週：今天查的是長句子答案。如果答案只有「是」或「340」這麼短，要怎麼評分？</p>
+</div></section>
+
+<footer><div class="wrap">
+  今天寫的查證器，是問答系統的最後一個零件：先檢索，再判斷能不能回答，最後檢查答案每一句有沒有照依據寫。答案一長，就要靠程式一句一句查，而不是人從頭讀到尾。
+</div></footer>
+
+<div id="tools">
+  <div id="panel" hidden>
+    <div>
+      <div id="clock">20:00</div>
+      <div class="row" style="margin-top:.6rem">
+        <button id="go" class="pri">開始</button>
+        <button id="reset">重設</button>
+      </div>
+      <div class="row" style="margin-top:.4rem">
+        <button data-min="20">20 分</button><button data-min="10">10 分</button><button data-min="5">5 分</button>
+      </div>
+      <div class="row" style="margin-top:.6rem">
+        <button id="pstart" class="pri" style="flex:1">投影模式</button>
+      </div>
+    </div>
+    <div style="border-top:1px solid var(--line);padding-top:.8rem">
+      <div class="row"><input id="code" type="password" inputmode="numeric" placeholder="解鎖點評" style="flex:1;min-width:0;padding:.45rem .6rem;border:1px solid var(--line);border-radius:6px;font:inherit">
+      <button id="unlock">解鎖</button></div>
+    </div>
+    <div style="border-top:1px solid var(--line);padding-top:.8rem">
+      <div id="draw">–</div>
+      <div id="drawn">尚未抽號</div>
+      <div class="row" style="margin-top:.5rem">
+        <button id="spin" class="pri">抽一個號次</button>
+        <button id="clear">重來</button>
+      </div>
+    </div>
+  </div>
+  <button class="toggle" id="tgl" aria-expanded="false">老師工具</button>
+</div>
+
+<div id="presbar">
+  <button id="pprev">‹</button>
+  <span id="presnum">1 / 1</span>
+  <button id="pnext" class="pri">下一頁 ›</button>
+  <button id="pexit">離開</button>
+</div>
+
+<script>
+(function(){
+  var panel=document.getElementById('panel'),tgl=document.getElementById('tgl');
+  tgl.addEventListener('click',function(){
+    var open=panel.hidden; panel.hidden=!open; tgl.setAttribute('aria-expanded',String(open));
+    tgl.textContent=open?'收起':'老師工具';
+  });
+
+  var total=20*60,left=total,timer=null,clock=document.getElementById('clock'),go=document.getElementById('go');
+  function show(){
+    var m=Math.floor(left/60),s=left%60;
+    clock.textContent=m+':'+(s<10?'0':'')+s;
+    clock.classList.toggle('low',left<=60);
+  }
+  function stop(){clearInterval(timer);timer=null;go.textContent='開始';}
+  go.addEventListener('click',function(){
+    if(timer){stop();return;}
+    if(left<=0)left=total;
+    go.textContent='暫停';
+    timer=setInterval(function(){left--;if(left<=0){left=0;show();stop();return;}show();},1000);
+  });
+  document.getElementById('reset').addEventListener('click',function(){stop();left=total;show();});
+  Array.prototype.forEach.call(document.querySelectorAll('[data-min]'),function(b){
+    b.addEventListener('click',function(){stop();total=parseInt(b.dataset.min,10)*60;left=total;show();});
+  });
+  show();
+
+
+  // ===== 投影模式 =====
+  var bar=document.getElementById('presbar'),num=document.getElementById('presnum');
+  var P={list:[],i:0,on:false};
+  function collect(){
+    P.list=[];
+    Array.prototype.forEach.call(document.querySelectorAll('body > section'),function(sec){
+      if(sec.hidden) return;
+      var wrap=sec.querySelector('.wrap'); if(!wrap) return;
+      var stage=wrap.querySelector('.stage');
+      var groups=[[]];
+      Array.prototype.forEach.call(wrap.children,function(k){
+        if(k.classList.contains('brk')){groups.push([]);return;}
+        if(k===stage) return;
+        groups[groups.length-1].push(k);
+      });
+      groups=groups.filter(function(g){return g.length;});
+      if(!groups.length) groups=[[]];
+      groups.forEach(function(g){P.list.push({sec:sec,stage:stage,keep:g});});
+    });
+  }
+  function showAll(sec){
+    var wrap=sec.querySelector('.wrap'); if(!wrap) return;
+    Array.prototype.forEach.call(wrap.children,function(k){
+      if(!k.classList.contains('brk')) k.style.display='';
+    });
+  }
+  function paintSlide(){
+    var cur=P.list[P.i];
+    P.list.forEach(function(it){
+      if(it.sec!==cur.sec){
+        it.sec.classList.remove('on'); showAll(it.sec);
+        Array.prototype.forEach.call(it.sec.querySelectorAll('video'),function(v){v.pause();});
+      }
+    });
+    cur.sec.classList.add('on'); cur.sec.scrollTop=0;
+    var wrap=cur.sec.querySelector('.wrap');
+    Array.prototype.forEach.call(wrap.children,function(k){
+      if(k.classList.contains('brk')) return;
+      if(k===cur.stage){k.style.display='';return;}
+      var keep=cur.keep.indexOf(k)>=0;
+      if(!keep){
+        Array.prototype.forEach.call(k.querySelectorAll('video'),function(v){v.pause();});
+      }
+      k.style.display=keep?'':'none';
+    });
+    num.textContent=(P.i+1)+' / '+P.list.length;
+  }
+  function presOn(){
+    collect(); if(!P.list.length) return;
+    P.on=true; P.i=0; document.body.classList.add('pres');
+    if(panel&&!panel.hidden){panel.hidden=true;tgl.setAttribute('aria-expanded','false');tgl.textContent='老師工具';}
+    paintSlide();
+    if(document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function(){});
+  }
+  function presOff(){
+    P.on=false; document.body.classList.remove('pres');
+    var cur=P.list[P.i]&&P.list[P.i].sec;
+    P.list.forEach(function(it){it.sec.classList.remove('on');showAll(it.sec);
+      Array.prototype.forEach.call(it.sec.querySelectorAll('video'),function(v){v.pause();});});
+    if(document.fullscreenElement&&document.exitFullscreen) document.exitFullscreen().catch(function(){});
+    if(cur) cur.scrollIntoView();
+  }
+  function step(d){
+    if(!P.on) return;
+    var n=P.i+d; if(n<0||n>=P.list.length) return;
+    P.i=n; paintSlide();
+  }
+  document.getElementById('pstart').addEventListener('click',presOn);
+  document.getElementById('pnext').addEventListener('click',function(){step(1);});
+  document.getElementById('pprev').addEventListener('click',function(){step(-1);});
+  document.getElementById('pexit').addEventListener('click',presOff);
+  document.addEventListener('keydown',function(e){
+    if(e.target&&/^(INPUT|TEXTAREA)$/.test(e.target.tagName)) return;
+    if(!P.on){ if(e.key==='p'||e.key==='P'){presOn();} return; }
+    if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key==='PageDown'){e.preventDefault();step(1);}
+    else if(e.key==='ArrowLeft'||e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();step(-1);}
+    else if(e.key==='Escape'){presOff();}
+  });
+  document.addEventListener('fullscreenchange',function(){
+    if(!document.fullscreenElement&&P.on) presOff();
+  });
+
+  var unlock=document.getElementById('unlock');
+  function tryUnlock(){
+    var v=document.getElementById('code').value.trim();
+    if(v!=='0326'){unlock.textContent='再試';setTimeout(function(){unlock.textContent='解鎖';},900);return;}
+    document.getElementById('review').hidden=false;
+    unlock.textContent='已解鎖';
+    if(P.on){var c=P.list[P.i];collect();for(var j=0;j<P.list.length;j++){if(P.list[j].sec===c.sec&&P.list[j].keep[0]===c.keep[0]){P.i=j;break;}}paintSlide();}
+    else document.getElementById('review').scrollIntoView({behavior:'smooth'});
+  }
+  unlock.addEventListener('click',tryUnlock);
+  document.getElementById('code').addEventListener('keydown',function(e){if(e.key==='Enter')tryUnlock();});
+
+  var pool=[1,2,3,4,5],used=[],dr=document.getElementById('draw'),dn=document.getElementById('drawn');
+  function paint(){dn.textContent=used.length?('已抽：'+used.join('、')+'（剩 '+(pool.length-used.length)+' 位）'):'尚未抽號';}
+  document.getElementById('spin').addEventListener('click',function(){
+    var rest=pool.filter(function(n){return used.indexOf(n)<0;});
+    if(!rest.length){dr.textContent='✓';dn.textContent='五位都抽過了';return;}
+    var n=rest[Math.floor(Math.random()*rest.length)];
+    used.push(n);dr.textContent=n;paint();
+  });
+  document.getElementById('clear').addEventListener('click',function(){used=[];dr.textContent='–';paint();});
+})();
+</script>
+
+</body>
+</html>
